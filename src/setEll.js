@@ -93,7 +93,6 @@ function setEllItem(dom, type) {
     case 'left':
       ellTop = top - (afterDomOffsetHeight - clientHeight) / 2
       ellTop = Math.max(ellTop, padding)
-      debugger
       ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding)
 
       angleTop  = top + (clientHeight - borderWidth) / 2
