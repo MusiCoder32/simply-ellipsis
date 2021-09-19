@@ -1,12 +1,13 @@
 let style = document.createElement('style')
 style.type = 'text/css';
 style.innerHTML = `
-.ell {
-    display: inline-block;
+.ell,.ell-l,.ell-r,.ell-t,.ell-b {
+    display: inline-block !important;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     --ell-background: rgb(48 49 51);
+    box-sizing: content-box !important;
 }
 
 .has-ell {
@@ -26,11 +27,11 @@ style.innerHTML = `
     font-size: 12px;
     line-height: 1.2;
     transition: visibility 0.5s, opacity 0.5s;
-    visibility: hidden;
-    opacity: 0;
     white-space: pre-wrap;
     z-index: 10000;
+    box-sizing: content-box !important;
 }
+
 
 .has-ell:before {
     content: '';
@@ -40,11 +41,20 @@ style.innerHTML = `
     border-width: 5px;
     border-style: solid;
     border-color: var(--ell-background) transparent transparent transparent;
-    visibility: hidden;
-    opacity: 0;
+
     transition: visibility 0.5s, opacity 0.5s;
     z-index: 10000;
+     box-sizing: content-box !important;
 }
+
+.has-ell-top:before {
+    border-color: var(--ell-background) transparent transparent transparent;
+}
+.has-ell-bottom:before {
+    border-color: transparent transparent var(--ell-background) transparent;
+}
+
+
 
 .has-ell:hover:after {
     visibility: visible;

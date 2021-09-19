@@ -11,24 +11,39 @@
       height: 100%;
       padding: 0;
       margin: 0;
+      color: #333;
     }
-
-    #app {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    .item {
+      width: 200px;
+      border:1px solid #999;
+      padding:0 10px;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body id="app">
-<div class="ell" style="width: 50px;height: 40px">使用方式极其简单</div>
-<div class="ell" style="width: 50px;height: 40px">Lorem ipsum dolor sit amet</div>
+<div style="width:100%;height:100%;display: flex;justify-content: space-between;flex-direction: column">
+  <div style="display: flex;justify-content: space-between">
+    <div class="ell-t item" >设置为ell-t,强制更改为ell-b的效果</div>
+    <div class="ell-r item" >设置为ell-r,强制更改为ell-l的效果</div>
+  </div>
+  <div style="display: flex;justify-content: space-between">
+    <div class="ell-t item" >设置为ell-l,强制更改为ell-r的效果</div>
+    <div class="ell-b item" >设置为ell-b,强制更改为ell-t的效果</div>
+  </div>
+</div>
+
 </body>
 <script type="module">
 import startEllipsis from "../index.js";
 
-new startEllipsis('app')
+startEllipsis('app')
+window.onload = function () {
+  startEllipsis('app')
+}
+window.onresize = function () {
+  startEllipsis('app')
+}
 </script>
 
 </html>
