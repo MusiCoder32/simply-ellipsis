@@ -1,8 +1,10 @@
 import getClientSize from './getClientSize.js'
 
 function setEllItem(dom, type) {
+  const padding = 5 //定义弹框距边界的位置
+  const anglePadding = 9 //定义小三角距边界的位置，padding加上圆角尺寸
   // 获取dom的尺寸
-  const {innerText, clientWidth} = dom
+  const {innerText, clientWidth, clientHeight} = dom
   const {w, h} = getClientSize()//浏览器可见区域高宽尺寸
   window.dom = dom
   const {left, top, bottom, right} = dom.getClientRects()[0]
@@ -50,12 +52,15 @@ function setEllItem(dom, type) {
   })
 
   //根据ell位置，给style对象设置新值
-  let ellLeft = 0
+  let ellLeft = padding
+  let ellTop = padding
+  let angleTop = anglePadding
+  let angleLeft = anglePadding
   switch (type) {
     case 'top':
       ellLeft = left - (afterDomOffsetWidth - clientWidth) / 2
-      ellLeft = Math.max(ellLeft, 10)
-      ellLeft = Math.min(ellLeft,w-afterDomOffsetWidth-10)
+      ellLeft = Math.max(ellLeft, padding)
+      ellLeft = Math.min(ellLeft, w - afterDomOffsetWidth - padding)
       cssObj['--ell-left'] = `${ellLeft}px`
       cssObj['--ell-top'] = `${top - afterDomOffsetHeight - borderWidth}px`
       cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - 2.5}px`
@@ -63,24 +68,41 @@ function setEllItem(dom, type) {
       break;
     case 'bottom':
       ellLeft = left - (afterDomOffsetWidth - clientWidth) / 2
-      ellLeft = Math.max(ellLeft, 10)
-      ellLeft = Math.min(ellLeft,w-afterDomOffsetWidth-10)
+      ellLeft = Math.max(ellLeft, padding)
+      ellLeft = Math.min(ellLeft, w - afterDomOffsetWidth - padding)
       cssObj['--ell-left'] = `${ellLeft}px`
       cssObj['--ell-top'] = `${bottom + borderWidth}px`
       cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - 2.5}px`
       cssObj['--ell-angle-top'] = `${bottom - borderWidth}px`
       break;
-    case 'left':
+    case 'right':
+      ellTop = top - (afterDomOffsetHeight - clientHeight) / 2
+      ellTop = Math.max(ellTop, padding)
+      ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding)
+
+      angleTop  = top + (clientHeight - borderWidth) / 2
+      angleTop = Math.max(angleTop, anglePadding)
+      angleTop = Math.min(angleTop, h - borderWidth*2 - anglePadding)
+
       cssObj['--ell-left'] = `${right + borderWidth}px`
-      cssObj['--ell-top'] = `${top - afterDomOffsetHeight - borderWidth}px`
-      cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - 2.5}px`
-      cssObj['--ell-angle-top'] = `${top - borderWidth}px`
+      cssObj['--ell-top'] = `${ellTop}px`
+      cssObj['--ell-angle-left'] = `${right - borderWidth}px`
+      cssObj['--ell-angle-top'] = `${angleTop}px`
+
       break;
-      case 'right':
-      cssObj['--ell-left'] = `${right + borderWidth}px`
-      cssObj['--ell-top'] = `${top - afterDomOffsetHeight - borderWidth}px`
-      cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - 2.5}px`
-      cssObj['--ell-angle-top'] = `${top - borderWidth}px`
+    case 'left':
+      ellTop = top - (afterDomOffsetHeight - clientHeight) / 2
+      ellTop = Math.max(ellTop, padding)
+      ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding)
+
+      angleTop  = top + (clientHeight - borderWidth) / 2
+      angleTop = Math.max(angleTop, anglePadding)
+      angleTop = Math.min(angleTop, h - borderWidth*2 - anglePadding)
+
+      cssObj['--ell-left'] = `${left -afterDomOffsetWidth -borderWidth}px`
+      cssObj['--ell-top'] = `${ellTop}px`
+      cssObj['--ell-angle-left'] = `${left - borderWidth}px`
+      cssObj['--ell-angle-top'] = `${angleTop}px`
       break;
     default:
       break

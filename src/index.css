@@ -1,4 +1,4 @@
-.ell,.ell-l,.ell-r,.ell-t,.ell-b {
+.ell, .ell-l, .ell-r, .ell-t, .ell-b {
   display: inline-block !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -50,10 +50,18 @@
 .has-ell-top:before {
   border-color: var(--ell-background) transparent transparent transparent;
 }
+
 .has-ell-bottom:before {
   border-color: transparent transparent var(--ell-background) transparent;
 }
 
+.has-ell-right:before {
+  border-color: transparent var(--ell-background) transparent transparent;
+}
+
+.has-ell-left:before {
+  border-color: transparent transparent transparent var(--ell-background);
+}
 
 
 .has-ell:hover:after {
