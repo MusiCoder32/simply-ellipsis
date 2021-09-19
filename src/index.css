@@ -3,11 +3,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  --ell-background: rgb(48 49 51);
   box-sizing: content-box !important;
 }
 
 .has-ell {
+  --ell-background: rgb(48 49 51);
+  --ell-left: 0;
+  --ell-top: 0;
+  --ell-angle-left: 0;
+  --ell-angle-top: 0
 }
 
 .has-ell:after {
