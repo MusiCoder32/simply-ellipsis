@@ -1,4 +1,4 @@
-import './src/setStyle.js'
+// import './src/setStyle.js'
 import setEll from "./src/setEll.js";
 import debounce from "./src/debounce.js";
 

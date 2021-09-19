@@ -30,6 +30,8 @@ style.innerHTML = `
     white-space: pre-wrap;
     z-index: 10000;
     box-sizing: content-box !important;
+    visibility: hidden;
+    opacity: 0;
 }
 
 
@@ -41,7 +43,8 @@ style.innerHTML = `
     border-width: 5px;
     border-style: solid;
     border-color: var(--ell-background) transparent transparent transparent;
-
+    visibility: hidden;
+    opacity: 0;
     transition: visibility 0.5s, opacity 0.5s;
     z-index: 10000;
      box-sizing: content-box !important;
