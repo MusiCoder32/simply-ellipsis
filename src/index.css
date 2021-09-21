@@ -1,4 +1,4 @@
-.ell, .ell-l, .ell-r, .ell-t, .ell-b {
+.ell {
   display: inline-block !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -6,18 +6,42 @@
   box-sizing: content-box !important;
 }
 
+.ell-l:after, .ell-r:after, .ell-t:after, .ell-b:after {
+  position: fixed;
+  content: attr(ell-value);
+  left: 0;
+  top: 0;
+}
+
+.ell-l:before, .ell-r:before, .ell-t:before, .ell-b:before {
+  content: '';
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.ell-l, .ell-r, .ell-t, .ell-b {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ell-l:hover, .ell-r:hover, .ell-t:hover, .ell-b:hover {
+  overflow: visible;
+}
+
+
 .has-ell {
   --ell-background: rgb(48 49 51);
   --ell-left: 0;
   --ell-top: 0;
   --ell-angle-left: 0;
-  --ell-angle-top: 0
+  --ell-angle-top: 0;
+  position: relative;
 }
 
 .has-ell:after {
   content: attr(ell-value);
   max-width: 250px;
-  position: fixed;
+  position: absolute !important;
   left: var(--ell-left);
   top: var(--ell-top);
   background-color: var(--ell-background);
@@ -28,24 +52,23 @@
   font-size: 12px;
   line-height: 1.2;
   transition: visibility 0.5s, opacity 0.5s;
-  white-space: pre-wrap;
   z-index: 10000;
   box-sizing: content-box !important;
-  visibility: hidden;
-  opacity: 0;
+  /*visibility: hidden;*/
+  /*opacity: 0;*/
 }
 
 
 .has-ell:before {
   content: '';
-  position: fixed;
+  position: absolute !important;
   left: var(--ell-angle-left);
   top: var(--ell-angle-top);
   border-width: 5px;
   border-style: solid;
   border-color: var(--ell-background) transparent transparent transparent;
-  visibility: hidden;
-  opacity: 0;
+  /*visibility: hidden;*/
+  /*opacity: 0;*/
   transition: visibility 0.5s, opacity 0.5s;
   z-index: 10000;
   box-sizing: content-box !important;
