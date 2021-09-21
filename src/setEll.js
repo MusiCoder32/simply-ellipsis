@@ -1,10 +1,14 @@
 import getClientSize from './getClientSize.js'
 
 function setEllItem(dom, type) {
+  window.dom = dom
   const padding = 5 //定义弹框距边界的位置
   const anglePadding = 9 //定义小三角距边界的位置，padding加上圆角尺寸
   // 获取dom的尺寸
-  let {innerText, clientWidth, clientHeight} = dom
+  let {innerText, clientWidth, offsetHeight} = dom
+
+
+
   //清空dom文字内容，并写入子元素存放之前的文字内容
   let childDom = dom.querySelector('.ell')
   if (!childDom) {
@@ -18,18 +22,24 @@ function setEllItem(dom, type) {
     childDom.classList.add('ell')
     dom.append(childDom)
     dom.setAttribute('ell-value', innerText)
-    dom.classList.add('has-ell')
   }
 
-
   const {w, h} = getClientSize()//浏览器可见区域高宽尺寸
-  window.dom = dom
   const {left, top, bottom, right} = dom.getClientRects()[0]
+
+  // 获取目标dom的style并封装成对象，便于修改
+  let cssTextArr = dom.style.cssText.split(';')
+  let cssObj = {}
+  cssTextArr.forEach((item) => {
+    let arr = item.split(':')
+    cssObj[arr[0]] = arr[1]
+  })
 
   //获取ell:after的尺寸
   const afterDom = window.getComputedStyle(dom, 'after')
-  console.log(afterDom)
-  var {paddingBottom, paddingLeft, paddingRight, paddingTop, height, width} = afterDom
+  // return
+
+  var {paddingBottom, paddingLeft, paddingRight, paddingTop, height, width, maxWidth} = afterDom
   let obj = {
     paddingBottom,
     paddingLeft,
@@ -37,16 +47,27 @@ function setEllItem(dom, type) {
     paddingTop,
     height,
     width,
+    maxWidth
   }
   for (let key in obj) {
     obj[key] = parseInt(obj[key])
   }
-  var {paddingBottom, paddingLeft, paddingRight, paddingTop, height, width} = obj
+  var {paddingBottom, paddingLeft, paddingRight, paddingTop, height, width, maxWidth} = obj
+  if (width >= maxWidth) {
+    width = maxWidth
+    cssObj['--ell-wrap'] = 'pre-wrap'
+    cssObj['--ell-width'] = maxWidth + 'px'
+  } else {
+    cssObj['--ell-wrap'] = 'nowrap'
+    cssObj['--ell-width'] = width + 'px'
+  }
   const afterDomOffsetWidth = width + paddingLeft + paddingRight
   const afterDomOffsetHeight = height + paddingTop + paddingBottom
 
   //获取ell:before，即气泡框上的小三角的尺寸
   const beforeDom = window.getComputedStyle(dom, 'before')
+
+
   const borderWidth = parseInt(beforeDom.borderWidth)
 
   // 根据上一步获取的尺寸，计算ell堤示框能否在视野内完全显示，若不能，强制更换其显示位置
@@ -58,14 +79,6 @@ function setEllItem(dom, type) {
   // 根据实际的ell提示框位置来设置气泡框小三角的朝向
   dom.classList.add('has-ell-' + type)
 
-
-  // 获取目标dom的style并封装成对象，便于修改
-  let cssTextArr = dom.style.cssText.split(';')
-  let cssObj = {}
-  cssTextArr.forEach((item) => {
-    let arr = item.split(':')
-    cssObj[arr[0]] = arr[1]
-  })
 
   //根据ell位置，给style对象设置新值
   let ellLeft = padding
@@ -87,18 +100,17 @@ function setEllItem(dom, type) {
       ellLeft = Math.max(ellLeft, padding)
       ellLeft = Math.min(ellLeft, w - afterDomOffsetWidth - padding - left)
       cssObj['--ell-left'] = `${ellLeft}px`
-      cssObj['--ell-top'] = `${clientHeight + borderWidth}px`
+
+      cssObj['--ell-top'] = `${offsetHeight + borderWidth}px`
       cssObj['--ell-angle-left'] = `${(clientWidth - borderWidth) / 2}px`
-      cssObj['--ell-angle-top'] = `${clientHeight - borderWidth}px`
+      cssObj['--ell-angle-top'] = `${offsetHeight - borderWidth}px`
       break;
     case 'right':
-      ellTop = -(afterDomOffsetHeight - clientHeight) / 2
-      debugger
+      ellTop = -(afterDomOffsetHeight - offsetHeight) / 2
       ellTop = Math.max(ellTop, padding - top)
       ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding - top)
-      console.log(clientHeight, ellTop, h, afterDomOffsetHeight, padding, top)
 
-      angleTop = (clientHeight - borderWidth) / 2
+      angleTop = (offsetHeight - borderWidth) / 2
       angleTop = Math.max(angleTop, anglePadding - top)
       angleTop = Math.min(angleTop, h - borderWidth * 2 - anglePadding - top)
 
@@ -109,11 +121,11 @@ function setEllItem(dom, type) {
 
       break;
     case 'left':
-      ellTop = -(afterDomOffsetHeight - clientHeight) / 2
+      ellTop = -(afterDomOffsetHeight - offsetHeight) / 2
       ellTop = Math.max(ellTop, padding - top)
       ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding - top)
 
-      angleTop = (clientHeight - borderWidth) / 2
+      angleTop = (offsetHeight - borderWidth) / 2
       angleTop = Math.max(angleTop, anglePadding - top)
       angleTop = Math.min(angleTop, h - borderWidth * 2 - anglePadding - top)
 
@@ -132,6 +144,8 @@ function setEllItem(dom, type) {
     cssTextString += key + ':' + cssObj[key] + ';'
   }
   dom.style.cssText = cssTextString
+  dom.classList.add('has-ell')
+
 }
 
 export default function setEll() {
