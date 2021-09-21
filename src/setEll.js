@@ -35,7 +35,7 @@ function setEllItem(dom, type) {
 
   // 根据上一步获取的尺寸，计算ell堤示框能否在视野内完全显示，若不能，强制更换其显示位置
   if (left - afterDomOffsetWidth - borderWidth < 0 && type === 'left') type = 'right'
-  if (right + afterDomOffsetWidth + borderWidth > h && type === 'right') type = 'left'
+  if (right + afterDomOffsetWidth + borderWidth > w && type === 'right') type = 'left'
   if (top - afterDomOffsetHeight - borderWidth < 0 && type === 'top') type = 'bottom'
   if (bottom + afterDomOffsetHeight + borderWidth > h && type === 'bottom') type = 'top'
 
