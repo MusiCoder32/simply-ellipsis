@@ -1,4 +1,5 @@
 .ell {
+  /* 作为子无素，若设置为inline-block,可能会撑高父元素高度，故强制为block*/
   display: block !important;
   overflow: hidden;
   text-overflow: ellipsis;
