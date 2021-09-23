@@ -17,6 +17,8 @@
   padding: 10px;
   line-height: 1.2;
   box-sizing: content-box !important;
+  visibility: hidden;
+  opacity: 0
 
 }
 
@@ -27,6 +29,8 @@
   top: 0;
   border-width: 5px;
   border-style: solid;
+  visibility: hidden;
+  opacity: 0
 
 }
 

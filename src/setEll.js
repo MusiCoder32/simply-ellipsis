@@ -1,12 +1,11 @@
 import getClientSize from './getClientSize.js'
 
 function setEllItem(dom, type) {
-  window.dom = dom
+  // window.dom = dom
   const padding = 5 //定义弹框距边界的位置
   const anglePadding = 9 //定义小三角距边界的位置，padding加上圆角尺寸
   // 获取dom的尺寸
   let {innerText, clientWidth, offsetHeight} = dom
-
 
 
   //清空dom文字内容，并写入子元素存放之前的文字内容
@@ -148,18 +147,30 @@ function setEllItem(dom, type) {
 
 }
 
+function getStyle(dom, key) {
+  return window.getComputedStyle(dom).key
+}
+
 export default function setEll() {
-  document.querySelectorAll('.ell-l').forEach((dom) => {
-    if (dom.scrollWidth > dom.clientWidth) setEllItem(dom, 'left')
+  const ellArr = [
+    {class: '.ell-l', type: 'left'},
+    {class: '.ell-r', type: 'right'},
+    {class: '.ell-t', type: 'top'},
+    {class: '.ell-b', type: 'bottom'}
+  ]
+  ellArr.forEach(item => {
+    document.querySelectorAll(item.class).forEach((dom) => {
+      // const range = document.createRange();
+      // range.setStart(dom, 0);
+      // range.setEnd(dom, dom.childNodes.length);
+      // const rangeWidth = range.getBoundingClientRect().width;
+      // const padding = (parseInt(getStyle(dom, 'paddingLeft'), 10) || 0) +
+      //   (parseInt(getStyle(dom, 'paddingRight'), 10) || 0);
+      // const domRealWidth = rangeWidth + padding
+      const domRealWidth = dom.scrollWidth
+      if (domRealWidth > dom.clientWidth) setEllItem(dom, item.type)
+    })
   })
-  document.querySelectorAll('.ell-r').forEach((dom) => {
-    if (dom.scrollWidth > dom.clientWidth) setEllItem(dom, 'right')
-  })
-  document.querySelectorAll('.ell-t').forEach((dom) => {
-    if (dom.scrollWidth > dom.clientWidth) setEllItem(dom, 'top')
-  })
-  document.querySelectorAll('.ell-b').forEach((dom) => {
-    if (dom.scrollWidth > dom.clientWidth) setEllItem(dom, 'bottom')
-  })
+
 
 }
