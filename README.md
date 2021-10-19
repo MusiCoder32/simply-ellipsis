@@ -1,10 +1,12 @@
 # 简介
 MutationObserver监听dom下所有style变化的方式简化使用，使用节流函数节约性能，在需要设置单行超长省略提示的div中写入class即可，非常方便！
 
+## 在线预览 [https://musicoder32.github.io/](https://musicoder32.github.io/)
+
 **解决tooltip不超长也会提示问题**
 
 **解决tooltip超出边界时不会自动调整的问题**
-在线预览 [https://musicoder32.github.io/](https://musicoder32.github.io/)
+
 
 **写入class后，仅当文字内容超长时，才会提示**
 ### 原生项目集成方式
