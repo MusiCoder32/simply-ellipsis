@@ -56,6 +56,7 @@ function setEllItem(dom, type) {
     width = maxWidth
     cssObj['--ell-wrap'] = 'pre-wrap'
     cssObj['--ell-width'] = maxWidth + 'px'
+    height = Math.ceil(width/maxWidth)*height
   } else {
     cssObj['--ell-wrap'] = 'nowrap'
     cssObj['--ell-width'] = width + 'px'
@@ -151,7 +152,7 @@ function getStyle(dom, key) {
   return window.getComputedStyle(dom).key
 }
 
-export default function setEll() {
+export const setEll = function() {
   const ellArr = [
     {class: '.ell-l', type: 'left'},
     {class: '.ell-r', type: 'right'},
@@ -171,6 +172,4 @@ export default function setEll() {
       if (domRealWidth > dom.clientWidth) setEllItem(dom, item.type)
     })
   })
-
-
 }

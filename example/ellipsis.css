@@ -1,3 +1,14 @@
+.has-ell {
+  --ell-background: rgb(48 49 51);
+  --ell-left: 0;
+  --ell-top: 0;
+  --ell-angle-left: 0;
+  --ell-angle-top: 0;
+  --ell-wrap: nowrap;
+  --ell-width:0;
+  position: relative;
+}
+
 .ell {
   /* 作为子无素，若设置为inline-block,可能会撑高父元素高度，故强制为block*/
   display: block !important;
@@ -18,7 +29,8 @@
   line-height: 1.2;
   box-sizing: content-box !important;
   visibility: hidden;
-  opacity: 0
+  opacity: 0;
+  white-space: pre-wrap;
 
 }
 
@@ -41,18 +53,6 @@
 }
 .ell-l:hover, .ell-r:hover, .ell-t:hover, .ell-b:hover {
   overflow: visible;
-}
-
-
-.has-ell {
-  --ell-background: rgb(48 49 51);
-  --ell-left: 0;
-  --ell-top: 0;
-  --ell-angle-left: 0;
-  --ell-angle-top: 0;
-  --ell-wrap: nowrap;
-  --ell-width:0;
-  position: relative;
 }
 
 .has-ell:after {

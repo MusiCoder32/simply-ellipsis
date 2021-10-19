@@ -1,11 +1,19 @@
 {
-  "name": "ellipsis",
+  "name": "simply-ellipsis",
   "version": "1.0.0",
   "description": "简易ellipsis效果，只需要一个class名便搞定",
-  "main": "index.js",
+  "main": "src/main.js",
+  "keywords": "ellipsis",
+  "repository": {
+    "type": "gitee",
+    "url": "https://gitee.com/sichuan_meiyijia_industry_w327134/ellipsis.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MusiCoder",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "rollup-plugin-uglify": "^6.0.4"
+  }
 }

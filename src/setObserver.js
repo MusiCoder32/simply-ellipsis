@@ -1,8 +1,8 @@
 // import './src/setStyle.js'
-import setEll from "./setEll.js";
+import { setEll } from "./setEll.js";
 import debounce from "./debounce.js";
 
-export default function setObserver(id) {
+export const  setObserver = function(id) {
   // 观察器的配置（需要观察什么变动）
   const config = {
     attributes: true,
