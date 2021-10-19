@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "简易ellipsis效果，只需要一个class名便搞定",
   "main": "src/main.js",
-  "keywords": "ellipsis",
+  "keywords": ["simply-ellipsis", "ellipsis"],
   "repository": {
     "type": "gitee",
     "url": "https://gitee.com/sichuan_meiyijia_industry_w327134/ellipsis.git"

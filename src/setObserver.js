@@ -8,6 +8,7 @@ export const  setObserver = function(id) {
     attributes: true,
     attributeFilter: ['style'],
     subtree: true,
+    childList: true,
   }
   const targetNode = document.getElementById(id)
   // 当观察到变动时执行的回调函数

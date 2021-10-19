@@ -111,22 +111,22 @@
 
 </div>
 </body>
-<script src="../dist/simply-ellipsis.js"></script>
-<script>
+<!--<script src="../dist/simply-ellipsis.js"></script>-->
+<!--<script>-->
+<!--window.addEventListener('load',()=>{-->
+<!--  ellipsis.setEll()-->
+<!--  ellipsis.setObserver('app')-->
+<!--})-->
+<!--</script>-->
+
+<script type="module">
+import ellipsis from '../src/main.js'
+
 window.addEventListener('load',()=>{
   ellipsis.setEll()
   ellipsis.setObserver('app')
 })
+
 </script>
-
-<!--<script type="module">-->
-<!--import ellipsis from '../src/main.js'-->
-
-<!--window.addEventListener('load',()=>{-->
-<!--  ellipsis.setEll()-->
-<!--  ellipsis.setObserver(app)-->
-<!--})-->
-
-<!--</script>-->
 
 </html>
