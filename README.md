@@ -1,18 +1,71 @@
-# 开发规范
-总的原则是遵循现有的代码结构与主要框架进行开发，具体要求如下
-1. 前端框架使用vue2.js;
-2. ui框架使用ant design vue;
-3. 防抖、节流、空值判断等常用方法使用lodash;
-4. 时间格式化使用moment;
-5. 使用axios发起接口请求;禁止在vue文件中直接使用axios发起请求，必须以方法封装的形式使用，参考src/common/apiRequest.js;
-6. 新增非ui框架自带图标时，必须使用svg图标，严格遵循src/icons文件下的使用方式；只需要将svg图标放入src/icons/svg文件夹下,按src/views/index.vue中的方式使用，
-7. 使用eslint及prettier统一代码风格，原则不允许修改已配置好的eslint及prettier规则；
-8. 禁止在js中进行html拼接;
-9. 必须使用scss语言，禁止直接编写css样式;严格参照src/assets/styles下的代码组织方式，main.scss为入口文件，base.scss为高频常用样式，cover.scss为对ui框架样式的覆盖，mixin.scss为样式混入及全局变量定义;
-10. .vue文件内超过30行的函数必须在关键位置加注释、.js文件内的函数必须添加函数描述;
-11. Prop定义: props的定义至少应指定其类型，无法指定的注释一下;
-12. .vue文件内的代码尽量控制在1000行以内;
-13. 命名：变量或函数使用小驼峰命名法/常量使用全部字母大写的命名方式/css命名建议采用BEM命名规范;
-### antdv主题定制方式
-修改src/assets/styles/antd.less中的配置
-官网链接https://www.antdv.com/docs/vue/customize-theme-cn/
+# 简介
+MutationObserver监听dom下所有style变化的方式简化使用，使用节流函数节约性能，在需要设置单行超长省略提示的div中写入class即可，非常方便！
+
+**写入class后，仅当文字内容超长时，才会提示**
+### 原生项目集成方式
+在head引入example下的ellipsis.css
+引入dist文件夹下的simply-ellipsis.js
+调用ellipsis方法，传入id，指定监听的dom
+具体可参考包中example中的使用方法
+
+```html
+<link rel="stylesheet" href="ellipsis.css"/>
+<script src="../dist/simply-ellipsis.js"></script>
+<script>
+	window.addEventListener('load',()=>{
+  		ellipsis.setEll()
+  		ellipsis.setObserver('app')
+	})
+</script>
+```
+### vue2项目集成方式
+可以采用原生项目使用方式，也可以采用以下方式
+1. npm i simply-ellipsis -S
+2. 在main.js中引入对应的css
+
+```javascript
+import 'simply-ellipsis/example/ellipsis.css'
+```
+3. App.vue中引入ellipsis
+
+```javascript
+import ellipsis from 'simply-ellipsis'
+// mounted方法中执行以下两句
+     ellipsis.setEll() //单次执行
+     // 开启监听，后续vue文件中便不用再执行ellipsis.setEll()方法
+     // 若不开启监听，则需要在对应的vue文件执行ellipsis.setEll()方法
+     ellipsis.setObserver('app') 
+```
+# 使用方式
+集成到项目后，只需在需要省略提示的div中使用表格中所列的class即可
+注意，class必须直接应用到包裹文字的元素中，目前仅测试了div/span
+
+```html
+<div class="ell-t">ellipsis提示</div>
+<span class="ell-t">ellipsis提示</span>
+```
+# 可用class
+|class类|效果  |
+|--|--|
+| ell| 只省略，不提示 |
+| ell-t| 顶部提示 |
+|ell-b| 底部提示 |
+|ell-l| 左侧提示 |
+|ell-r| 右侧提示 |
+
+# 使用技巧
+1. 可重写.has-ell样式来修改提示框的背景色
+
+```css
+.has-ell {
+    --ell-background: red !important;
+}
+```
+2. 在v-for形成的滚动列表中，由于父元素的overflow:hidden影响，会导致提示框被遮挡，故可以根据index序号动态设置提示框方向，序号小于2的，设置为ell-b,序号大于2的，设置为ell-t如下
+
+```html
+      <div
+          :class="index > 2 ? 'ell-t' : 'ell-b'"
+          @click="onPolicyClick(item)"
+      >
+```
