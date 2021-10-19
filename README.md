@@ -1,14 +1,11 @@
 # 简介
-MutationObserver监听dom下所有style变化的方式简化使用，使用节流函数节约性能，在需要设置单行超长省略提示的div中写入class即可，非常方便！
+**simply-ellipsis是纯原生技术实现的tooltip功能，解决ui组件tooltip功能不够全面的问题**
+**在线预览 [https://musicoder32.github.io/](https://musicoder32.github.io/)**
 
-## 在线预览 [https://musicoder32.github.io/](https://musicoder32.github.io/)
+1. 解决tooltip不超长也会提示问题
 
-**解决tooltip不超长也会提示问题**
+2. 解决tooltip超出边界时不会自动调整的问题
 
-**解决tooltip超出边界时不会自动调整的问题**
-
-
-**写入class后，仅当文字内容超长时，才会提示**
 ### 原生项目集成方式
 1. 在head引入example文件夹下的ellipsis.css
 2. 引入dist文件夹下的simply-ellipsis.js
@@ -57,8 +54,8 @@ import ellipsis from 'simply-ellipsis'
 |--|--|
 | ell| 只省略，不提示 |
 | ell-t| 顶部提示 |
-|ell-b| 底部提示 |
-|ell-l| 左侧提示 |
+| ell-b| 底部提示 |
+| ell-l| 左侧提示 |
 |ell-r| 右侧提示 |
 
 # 使用技巧
