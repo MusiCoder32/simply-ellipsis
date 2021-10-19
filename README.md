@@ -3,9 +3,10 @@ MutationObserver监听dom下所有style变化的方式简化使用，使用节�
 
 **写入class后，仅当文字内容超长时，才会提示**
 ### 原生项目集成方式
-在head引入example下的ellipsis.css
-引入dist文件夹下的simply-ellipsis.js
-调用ellipsis方法，传入id，指定监听的dom
+1. 在head引入example文件夹下的ellipsis.css
+2. 引入dist文件夹下的simply-ellipsis.js
+3. 调用ellipsis方法，传入id，指定监听的dom
+
 具体可参考包中example中的使用方法
 
 ```html
