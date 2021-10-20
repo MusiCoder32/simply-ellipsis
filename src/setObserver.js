@@ -5,8 +5,8 @@ import debounce from "./debounce.js";
 export const  setObserver = function(id) {
   // 观察器的配置（需要观察什么变动）
   const config = {
-    attributes: true,
-    attributeFilter: ['style'],
+    // attributes: true,
+    // attributeFilter: ['style'],
     subtree: true,
     childList: true,
   }
