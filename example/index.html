@@ -4,7 +4,7 @@
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../src/index.css"/>
+  <link rel="stylesheet" href="ellipsis.css"/>
   <title>Hello, World</title>
   <style>
     html, body {
@@ -27,13 +27,45 @@
       border: 1px solid #999;
       padding: 0 10px;
       border-radius: 4px;
+      margin:20px;
+    }
+
+    .p-t-20, .p-t-70 {
+      position: absolute;
+      left: 50%;
+      width: 500px;
+      height: 200px;
+
+      border: 1px solid gray;
+      overflow: auto;
+    }
+
+    .scroll {
+
+      width: 600px;
+      height: 200px;
+      padding: 50px;
+
+    }
+
+    .p-t-20 {
+      padding: 50px;
+
+      top: 20%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+
+    .p-t-70 {
+      top: 70%;
     }
   </style>
 </head>
 <body id="app">
 <div style="width:100%;height:100%;display: flex;justify-content: space-between;flex-direction: column">
   <div style="display: flex;justify-content: space-between">
-    <div class="ell-t item-2">设置为ell-t,强制更改为ell-b的效果</div>
+    <div class="ell-t item-2">设置为ell-t,强制更改为ell-b的效果强制更改为ell-b的效果强制更改为ell-b的效果</div>
     <div class="ell-r item-2">设置为ell-r,强制更改为ell-l的效果</div>
   </div>
   <div style="display: flex;justify-content: space-between">
@@ -41,12 +73,52 @@
     <div class="ell-b item-2">设置为ell-b,强制更改为ell-t的效果</div>
   </div>
 </div>
+<div class="p-t-20" style="overflow: visible">
+  <div style="display: flex;justify-content: center">
+    <div class="ell-t item">顶部ell-t</div>
+  </div>
+  <div style="display: flex;justify-content: space-between">
+    <div class="ell-l item">左侧ell-l</div>
+    <div class="ell item" style="width: 130px;">只省略，不提示 只省略，不提示</div>
+    <div class="ell-r item">右侧ell-r</div>
+  </div>
+  <div style="display: flex;justify-content: center">
+    <div class="ell-b item">底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell底部ell-t</div>
+  </div>
+</div>
 
+<div class="p-t-70">
+  <div class="scroll">
+    <div style="display: flex;justify-content: center">
+      <div class="ell-t item">顶部ell-t</div>
+    </div>
+    <div style="display: flex;justify-content: center">
+      <div class="ell-l item">左侧ell-l</div>
+      <div class="ell item" style="width: 130px;">只省略，不提示 只省略，不提示</div>
+      <div class="ell-r item">右侧ell-r</div>
+    </div>
+    <div style="display: flex;justify-content: center">
+      <div class="ell-b item">底部ell-t</div>
+    </div>
+  </div>
+
+</div>
 </body>
-<script type="module">
-import startEllipsis from '../index.js'
+<!--<script src="../dist/simply-ellipsis.js"></script>-->
+<!--<script>-->
+<!--window.addEventListener('load',()=>{-->
+<!--  ellipsis.setEll()-->
+<!--  ellipsis.setObserver('app')-->
+<!--})-->
+<!--</script>-->
 
-startEllipsis('app')
+<script type="module">
+import ellipsis from '../src/main.js'
+
+window.addEventListener('load',()=>{
+  ellipsis.setEll()
+  ellipsis.setObserver('app')
+})
 
 </script>
 

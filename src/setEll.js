@@ -8,12 +8,21 @@ function setEllItem(dom, type) {
   const {w, h} = getClientSize()//浏览器可见区域高宽尺寸
   window.dom = dom
   const {left, top, bottom, right} = dom.getClientRects()[0]
-
   dom.setAttribute('ell-value', innerText)
-  dom.classList.add('has-ell')
+
+  // 获取目标dom的style并封装成对象，便于修改
+  let cssTextArr = dom.style.cssText.split(';')
+  let cssObj = {}
+  cssTextArr.forEach((item) => {
+    let arr = item.split(':')
+    cssObj[arr[0]] = arr[1]
+  })
+
   //获取ell:after的尺寸
   const afterDom = window.getComputedStyle(dom, 'after')
-  var {paddingBottom, paddingLeft, paddingRight, paddingTop, height, width} = afterDom
+  // return
+
+  var {paddingBottom, paddingLeft, paddingRight, paddingTop, height, width, maxWidth} = afterDom
   let obj = {
     paddingBottom,
     paddingLeft,
@@ -21,11 +30,20 @@ function setEllItem(dom, type) {
     paddingTop,
     height,
     width,
+    maxWidth
   }
   for (let key in obj) {
     obj[key] = parseInt(obj[key])
   }
-  var {paddingBottom, paddingLeft, paddingRight, paddingTop, height, width} = obj
+  var {paddingBottom, paddingLeft, paddingRight, paddingTop, height, width, maxWidth} = obj
+  if (width >= maxWidth) {
+    width = maxWidth
+    cssObj['--ell-wrap'] = 'pre-wrap'
+    cssObj['--ell-width'] = maxWidth + 'px'
+  } else {
+    cssObj['--ell-wrap'] = 'nowrap'
+    cssObj['--ell-width'] = width + 'px'
+  }
   const afterDomOffsetWidth = width + paddingLeft + paddingRight
   const afterDomOffsetHeight = height + paddingTop + paddingBottom
 
@@ -43,14 +61,6 @@ function setEllItem(dom, type) {
   dom.classList.add('has-ell-' + type)
 
 
-  // 获取目标dom的style并封装成对象，便于修改
-  let cssTextArr = dom.style.cssText.split(';')
-  let cssObj = {}
-  cssTextArr.forEach((item) => {
-    let arr = item.split(':')
-    cssObj[arr[0]] = arr[1]
-  })
-
   //根据ell位置，给style对象设置新值
   let ellLeft = padding
   let ellTop = padding
@@ -63,7 +73,7 @@ function setEllItem(dom, type) {
       ellLeft = Math.min(ellLeft, w - afterDomOffsetWidth - padding)
       cssObj['--ell-left'] = `${ellLeft}px`
       cssObj['--ell-top'] = `${top - afterDomOffsetHeight - borderWidth}px`
-      cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - 2.5}px`
+      cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - borderWidth/2}px`
       cssObj['--ell-angle-top'] = `${top - borderWidth}px`
       break;
     case 'bottom':
@@ -114,20 +124,28 @@ function setEllItem(dom, type) {
     cssTextString += key + ':' + cssObj[key] + ';'
   }
   dom.style.cssText = cssTextString
+  dom.classList.add('has-ell')
+
 }
 
-export default function setEll() {
-  document.querySelectorAll('.ell-l').forEach((dom) => {
-    if (dom.scrollWidth > dom.clientWidth) setEllItem(dom, 'left')
+export const setEll = function() {
+  const ellArr = [
+    {class: '.ell-l', type: 'left'},
+    {class: '.ell-r', type: 'right'},
+    {class: '.ell-t', type: 'top'},
+    {class: '.ell-b', type: 'bottom'}
+  ]
+  ellArr.forEach(item => {
+    document.querySelectorAll(item.class).forEach((dom) => {
+      // const range = document.createRange();
+      // range.setStart(dom, 0);
+      // range.setEnd(dom, dom.childNodes.length);
+      // const rangeWidth = range.getBoundingClientRect().width;
+      // const padding = (parseInt(getStyle(dom, 'paddingLeft'), 10) || 0) +
+      //   (parseInt(getStyle(dom, 'paddingRight'), 10) || 0);
+      // const domRealWidth = rangeWidth + padding
+      const domRealWidth = dom.scrollWidth
+      if (domRealWidth > dom.clientWidth) setEllItem(dom, item.type)
+    })
   })
-  document.querySelectorAll('.ell-r').forEach((dom) => {
-    if (dom.scrollWidth > dom.clientWidth) setEllItem(dom, 'right')
-  })
-  document.querySelectorAll('.ell-t').forEach((dom) => {
-    if (dom.scrollWidth > dom.clientWidth) setEllItem(dom, 'top')
-  })
-  document.querySelectorAll('.ell-b').forEach((dom) => {
-    if (dom.scrollWidth > dom.clientWidth) setEllItem(dom, 'bottom')
-  })
-
 }
