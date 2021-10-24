@@ -18,7 +18,7 @@ export const  setObserver = function(id) {
     observer.disconnect() //观察到变动后立即销毁
     setEll() //执行操作
     observer.observe(targetNode, config) //操作完成后再开启监听，避免在上一步操作中，循环触发监听
-  }, 200)
+  }, 1000)
 
 // 创建一个观察器实例并传入回调函数
   const observer = new MutationObserver(callback)
