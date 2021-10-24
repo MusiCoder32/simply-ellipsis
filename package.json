@@ -12,11 +12,13 @@
     "url": "https://gitee.com/sichuan_meiyijia_industry_w327134/ellipsis.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
   },
   "author": "MusiCoder",
   "license": "ISC",
   "devDependencies": {
+    "rollup": "^1.32.1",
     "rollup-plugin-uglify": "^6.0.4"
   }
 }
