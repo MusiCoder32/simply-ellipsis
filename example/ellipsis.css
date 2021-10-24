@@ -49,15 +49,16 @@
 .ell-l, .ell-r, .ell-t, .ell-b {
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
   display: block !important;
 }
-.ell-l:hover, .ell-r:hover, .ell-t:hover, .ell-b:hover {
-  overflow: visible;
-}
+/*.ell-l:hover, .ell-r:hover, .ell-t:hover, .ell-b:hover {*/
+/*  overflow: visible;*/
+/*}*/
 
 .has-ell:after {
   content: attr(ell-value);
-  position: absolute !important;
+  position: fixed;
   left: var(--ell-left);
   top: var(--ell-top);
   white-space: var(--ell-wrap);
@@ -75,7 +76,7 @@
 
 .has-ell:before {
   content: '';
-  position: absolute !important;
+  position: fixed;
   left: var(--ell-angle-left);
   top: var(--ell-angle-top);
   border-width: 5px;
