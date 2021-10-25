@@ -1,7 +1,7 @@
 # 简介
 **simply-ellipsis是纯原生技术实现的tooltip功能，解决ui组件tooltip功能不够全面的问题**
 
-**在线预览 [https://musicoder32.github.io/](https://musicoder32.github.io/)**
+**在线预览 [http://sichuan_meiyijia_industry_w327134.gitee.io/ellipsis/](http://sichuan_meiyijia_industry_w327134.gitee.io/ellipsis/)**
 
 1. 解决tooltip不超长也会提示问题
 2. 解决tooltip超出边界时不会自动调整的问题
