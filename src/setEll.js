@@ -1,5 +1,12 @@
 import getClientSize from './getClientSize.js'
 
+const ellArr = [
+  {class: '.ell-l', type: 'left'},
+  {class: '.ell-r', type: 'right'},
+  {class: '.ell-t', type: 'top'},
+  {class: '.ell-b', type: 'bottom'}
+]
+
 function setEllItem(dom, type) {
   const padding = 5 //定义弹框距边界的位置
   const anglePadding = 9 //定义小三角距边界的位置，padding加上圆角尺寸
@@ -58,6 +65,9 @@ function setEllItem(dom, type) {
   if (bottom + afterDomOffsetHeight + borderWidth > h && type === 'bottom') type = 'top'
 
   // 根据实际的ell提示框位置来设置气泡框小三角的朝向
+  ellArr.forEach(item => {
+    dom.classList.remove('has-ell-' + item.type)
+  })
   dom.classList.add('has-ell-' + type)
 
 
@@ -65,7 +75,6 @@ function setEllItem(dom, type) {
   let ellLeft = padding
   let ellTop = padding
   let angleTop = anglePadding
-  let angleLeft = anglePadding
   switch (type) {
     case 'top':
       ellLeft = left - (afterDomOffsetWidth - clientWidth) / 2
@@ -73,7 +82,7 @@ function setEllItem(dom, type) {
       ellLeft = Math.min(ellLeft, w - afterDomOffsetWidth - padding)
       cssObj['--ell-left'] = `${ellLeft}px`
       cssObj['--ell-top'] = `${top - afterDomOffsetHeight - borderWidth}px`
-      cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - borderWidth/2}px`
+      cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - borderWidth / 2}px`
       cssObj['--ell-angle-top'] = `${top - borderWidth}px`
       break;
     case 'bottom':
@@ -90,9 +99,9 @@ function setEllItem(dom, type) {
       ellTop = Math.max(ellTop, padding)
       ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding)
 
-      angleTop  = top + (clientHeight - borderWidth) / 2
+      angleTop = top + (clientHeight - borderWidth) / 2
       angleTop = Math.max(angleTop, anglePadding)
-      angleTop = Math.min(angleTop, h - borderWidth*2 - anglePadding)
+      angleTop = Math.min(angleTop, h - borderWidth * 2 - anglePadding)
 
       cssObj['--ell-left'] = `${right + borderWidth}px`
       cssObj['--ell-top'] = `${ellTop}px`
@@ -105,11 +114,11 @@ function setEllItem(dom, type) {
       ellTop = Math.max(ellTop, padding)
       ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding)
 
-      angleTop  = top + (clientHeight - borderWidth) / 2
+      angleTop = top + (clientHeight - borderWidth) / 2
       angleTop = Math.max(angleTop, anglePadding)
-      angleTop = Math.min(angleTop, h - borderWidth*2 - anglePadding)
+      angleTop = Math.min(angleTop, h - borderWidth * 2 - anglePadding)
 
-      cssObj['--ell-left'] = `${left -afterDomOffsetWidth -borderWidth}px`
+      cssObj['--ell-left'] = `${left - afterDomOffsetWidth - borderWidth}px`
       cssObj['--ell-top'] = `${ellTop}px`
       cssObj['--ell-angle-left'] = `${left - borderWidth}px`
       cssObj['--ell-angle-top'] = `${angleTop}px`
@@ -128,13 +137,8 @@ function setEllItem(dom, type) {
 
 }
 
-export const setEll = function() {
-  const ellArr = [
-    {class: '.ell-l', type: 'left'},
-    {class: '.ell-r', type: 'right'},
-    {class: '.ell-t', type: 'top'},
-    {class: '.ell-b', type: 'bottom'}
-  ]
+export const setEll = function () {
+
   ellArr.forEach(item => {
     document.querySelectorAll(item.class).forEach((dom) => {
       // const range = document.createRange();

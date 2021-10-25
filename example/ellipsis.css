@@ -9,6 +9,13 @@
   position: relative;
 }
 
+/*调试代码，放开注释能让页面中所有tooltip显示出来，便于调试*/
+/*.ell-l:after, .ell-r:after, .ell-t:after, .ell-b:after,.ell-l:before, .ell-r:before, .ell-t:before, .ell-b:before,.has-ell:after,.has-ell:before {*/
+/*  visibility: visible !important;*/
+/*  opacity: 1 !important;*/
+/*}*/
+
+
 .ell {
   /* 作为子无素，若设置为inline-block,可能会撑高父元素高度，故强制为block*/
   display: block !important;
