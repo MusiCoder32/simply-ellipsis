@@ -9,6 +9,13 @@
   position: relative;
 }
 
+/*调试代码，放开注释能让页面中所有tooltip显示出来，便于调试*/
+/*.ell-l:after, .ell-r:after, .ell-t:after, .ell-b:after,.ell-l:before, .ell-r:before, .ell-t:before, .ell-b:before,.has-ell:after,.has-ell:before {*/
+/*  visibility: visible !important;*/
+/*  opacity: 1 !important;*/
+/*}*/
+
+
 .ell {
   /* 作为子无素，若设置为inline-block,可能会撑高父元素高度，故强制为block*/
   display: block !important;
@@ -49,15 +56,16 @@
 .ell-l, .ell-r, .ell-t, .ell-b {
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
   display: block !important;
 }
-.ell-l:hover, .ell-r:hover, .ell-t:hover, .ell-b:hover {
-  overflow: visible;
-}
+/*.ell-l:hover, .ell-r:hover, .ell-t:hover, .ell-b:hover {*/
+/*  overflow: visible;*/
+/*}*/
 
 .has-ell:after {
   content: attr(ell-value);
-  position: absolute !important;
+  position: fixed;
   left: var(--ell-left);
   top: var(--ell-top);
   white-space: var(--ell-wrap);
@@ -75,7 +83,7 @@
 
 .has-ell:before {
   content: '';
-  position: absolute !important;
+  position: fixed;
   left: var(--ell-angle-left);
   top: var(--ell-angle-top);
   border-width: 5px;
