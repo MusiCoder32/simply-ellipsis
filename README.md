@@ -67,7 +67,7 @@
 仓库中一共有三个分支，一个分支是fixed分支，一个分支是position分支，master分支的代码与fixed分支代码相同
 
 
-###Api说明
+### Api说明
 框架暴露了一个ellipsis的对象，该对象提供了两个方法，分别为setEll,setObserver
 
 1. setEll介绍
