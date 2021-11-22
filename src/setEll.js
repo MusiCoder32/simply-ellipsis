@@ -13,7 +13,6 @@ function setEllItem(dom, type) {
   // 获取dom的尺寸
   const {innerText, clientWidth, clientHeight} = dom
   const {w, h} = getClientSize()//浏览器可见区域高宽尺寸
-  window.dom = dom
   const {left, top, bottom, right} = dom.getClientRects()[0]
   dom.setAttribute('ell-value', innerText)
 
@@ -63,12 +62,6 @@ function setEllItem(dom, type) {
   if (right + afterDomOffsetWidth + borderWidth > w && type === 'right') type = 'left'
   if (top - afterDomOffsetHeight - borderWidth < 0 && type === 'top') type = 'bottom'
   if (bottom + afterDomOffsetHeight + borderWidth > h && type === 'bottom') type = 'top'
-
-  // 根据实际的ell提示框位置来设置气泡框小三角的朝向
-  ellArr.forEach(item => {
-    dom.classList.remove('has-ell-' + item.type)
-  })
-  dom.classList.add('has-ell-' + type)
 
 
   //根据ell位置，给style对象设置新值
@@ -127,13 +120,26 @@ function setEllItem(dom, type) {
       break
   }
 
-  //将新的style对象重新拼接成字符串，返给dom
+  //将新的style对象重新拼接成字符串
   let cssTextString = ''
   for (let key in cssObj) {
     cssTextString += key + ':' + cssObj[key] + ';'
   }
-  dom.style.cssText = cssTextString
-  dom.classList.add('has-ell')
+  let tooltip = document.getElementById('simply-ellipsis-tooltip')
+  if (!tooltip) {
+    tooltip = document.createElement('div')
+    tooltip.setAttribute('id', 'simply-ellipsis-tooltip')
+    document.body.append(tooltip)
+  }
+  tooltip.setAttribute('ell-value', innerText)
+  tooltip.style.cssText = cssTextString
+  // 根据实际的ell提示框位置来设置气泡框小三角的朝向
+  ellArr.forEach(item => {
+    tooltip.classList.remove('has-ell-' + item.type)
+  })
+  tooltip.classList.add('has-ell-' + type)
+  tooltip.classList.add('has-ell')
+  tooltip.classList.add('has-ell-visibility')
 
 }
 
@@ -141,15 +147,17 @@ export const setEll = function () {
 
   ellArr.forEach(item => {
     document.querySelectorAll(item.class).forEach((dom) => {
-      // const range = document.createRange();
-      // range.setStart(dom, 0);
-      // range.setEnd(dom, dom.childNodes.length);
-      // const rangeWidth = range.getBoundingClientRect().width;
-      // const padding = (parseInt(getStyle(dom, 'paddingLeft'), 10) || 0) +
-      //   (parseInt(getStyle(dom, 'paddingRight'), 10) || 0);
-      // const domRealWidth = rangeWidth + padding
       const domRealWidth = dom.scrollWidth
-      if (domRealWidth > dom.clientWidth) setEllItem(dom, item.type)
+      if (domRealWidth > dom.clientWidth) {
+        dom.addEventListener('mouseover', () => setEllItem(dom, item.type))
+        dom.addEventListener('mouseleave', () => {
+          let tooltip = document.getElementById('simply-ellipsis-tooltip')
+          if (tooltip) {
+            tooltip.classList.remove('has-ell-visibility')
+          }
+        })
+        // dom.addEventListener('mouseover',()=>console.log(1234))
+      }
     })
   })
 }

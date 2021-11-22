@@ -149,28 +149,28 @@
 </div>
 
 </body>
-<script src="dist/simply-ellipsis.js"></script>
-<script>
-window.addEventListener('load', () => {
-  ellipsis.setEll()
-  ellipsis.setObserver('app')
-})
-window.addEventListener('resize', () => {
-  ellipsis.setEll()
-})
-
-let scrollDom = document.querySelector('.example-3')
-scrollDom.addEventListener('scroll', ellipsis.setEll)
-</script>
-
-<!--<script type="module">-->
-<!--import ellipsis from '../src/main.js'-->
-
-<!--window.addEventListener('load',()=>{-->
+<!--<script src="dist/simply-ellipsis.js"></script>-->
+<!--<script>-->
+<!--window.addEventListener('load', () => {-->
 <!--  ellipsis.setEll()-->
 <!--  ellipsis.setObserver('app')-->
 <!--})-->
+<!--window.addEventListener('resize', () => {-->
+<!--  ellipsis.setEll()-->
+<!--})-->
 
+<!--let scrollDom = document.querySelector('.example-3')-->
+<!--scrollDom.addEventListener('scroll', ellipsis.setEll)-->
 <!--</script>-->
+
+<script type="module">
+import ellipsis from './src/main.js'
+
+window.addEventListener('load',()=>{
+  ellipsis.setEll()
+  ellipsis.setObserver('app')
+})
+
+</script>
 
 </html>
