@@ -1,12 +1,10 @@
-import { uglify } from 'rollup-plugin-uglify';
+import { uglify } from 'rollup-plugin-uglify'
 export default {
     input: './src/main.js',
     output: {
         file: './dist/simply-ellipsis.js',
         format: 'umd',
-        name: 'ellipsis'
+        name: 'ellipsis',
     },
-    plugins: [
-        uglify()
-    ]
-};
+    // plugins: [uglify()],
+}

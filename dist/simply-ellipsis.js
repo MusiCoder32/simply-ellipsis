@@ -1,1 +1,240 @@
-!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):(t=t||self).ellipsis=e()}(this,function(){"use strict";const k=[{class:".ell-l",type:"left"},{class:".ell-r",type:"right"},{class:".ell-t",type:"top"},{class:".ell-b",type:"bottom"}];function l(e,t){var{innerText:l,clientWidth:i,clientHeight:o}=e,{w:n,h:a}=window.innerWidth?{w:window.innerWidth,h:window.innerHeight}:(document.compatMode="BackCompat",{w:document.body.clientWidth,h:document.body.clientHeigth}),{left:p,top:d,bottom:s,right:h}=(window.dom=e).getClientRects()[0];e.setAttribute("ell-value",l);let r=e.style.cssText.split(";"),c={};r.forEach(t=>{t=t.split(":");c[t[0]]=t[1]});var f,{paddingBottom:m,paddingLeft:g,paddingRight:x,paddingTop:u,height:w,width:b,maxWidth:l}=window.getComputedStyle(e,"after");let y={paddingBottom:m,paddingLeft:g,paddingRight:x,paddingTop:u,height:w,width:b,maxWidth:l};for(f in y)y[f]=parseInt(y[f]);var{paddingBottom:m,paddingLeft:g,paddingRight:x,paddingTop:u,height:w,width:b,maxWidth:l}=y;l<=b?(b=l,c["--ell-wrap"]="pre-wrap",c["--ell-width"]=l+"px"):(c["--ell-wrap"]="nowrap",c["--ell-width"]=b+"px");var $,M=b+g+x,v=w+u+m,m=window.getComputedStyle(e,"before"),W=parseInt(m.borderWidth);p-M-W<0&&"left"===t&&(t="right"),n<h+M+W&&"right"===t&&(t="left"),d-v-W<0&&"top"===t&&(t="bottom"),a<s+v+W&&"bottom"===t&&(t="top"),k.forEach(t=>{e.classList.remove("has-ell-"+t.type)}),e.classList.add("has-ell-"+t);let T=5,L=5,E=9;switch(t){case"top":T=p-(M-i)/2,T=Math.max(T,5),T=Math.min(T,n-M-5),c["--ell-left"]=`${T}px`,c["--ell-top"]=`${d-v-W}px`,c["--ell-angle-left"]=`${p+i/2-W/2}px`,c["--ell-angle-top"]=`${d-W}px`;break;case"bottom":T=p-(M-i)/2,T=Math.max(T,5),T=Math.min(T,n-M-5),c["--ell-left"]=`${T}px`,c["--ell-top"]=`${s+W}px`,c["--ell-angle-left"]=`${p+i/2-2.5}px`,c["--ell-angle-top"]=`${s-W}px`;break;case"right":L=d-(v-o)/2,L=Math.max(L,5),L=Math.min(L,a-v-5),E=d+(o-W)/2,E=Math.max(E,9),E=Math.min(E,a-2*W-9),c["--ell-left"]=`${h+W}px`,c["--ell-top"]=`${L}px`,c["--ell-angle-left"]=`${h-W}px`,c["--ell-angle-top"]=`${E}px`;break;case"left":L=d-(v-o)/2,L=Math.max(L,5),L=Math.min(L,a-v-5),E=d+(o-W)/2,E=Math.max(E,9),E=Math.min(E,a-2*W-9),c["--ell-left"]=`${p-M-W}px`,c["--ell-top"]=`${L}px`,c["--ell-angle-left"]=`${p-W}px`,c["--ell-angle-top"]=`${E}px`}let B="";for($ in c)B+=$+":"+c[$]+";";e.style.cssText=B,e.classList.add("has-ell")}function o(){k.forEach(e=>{document.querySelectorAll(e.class).forEach(t=>{t.scrollWidth>t.clientWidth&&l(t,e.type)})})}return{setEll:o,setObserver:function(t){const l={subtree:!0,childList:!0},i=document.getElementById(t);t=function(e,t){let l=t||500,i;return function(){let t=arguments;i&&clearTimeout(i),i=setTimeout(()=>{i=null,e.apply(this,t)},l)}}(function(t,e){console.log(e),e.disconnect(),o(),e.observe(i,l)},1e3);const e=new MutationObserver(t);e.observe(i,l)}}});
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    (global = global || self, global.ellipsis = factory());
+}(this, (function () { 'use strict';
+
+    function getClientSize() {
+        if (window.innerWidth) {
+            return {
+                w: window.innerWidth,
+                h: window.innerHeight,
+            }
+        } else if ((document.compatMode = 'BackCompat')) {
+            return {
+                w: document.body.clientWidth,
+                h: document.body.clientHeigth,
+            }
+        } else {
+            return {
+                w: document.documentElement.clientWidth,
+                h: document.documentElement.clientHeight,
+            }
+        }
+    }
+
+    const ellArr = [
+        { class: '.ell-l', type: 'left' },
+        { class: '.ell-r', type: 'right' },
+        { class: '.ell-t', type: 'top' },
+        { class: '.ell-b', type: 'bottom' },
+    ];
+
+    function setEllItem(dom, type) {
+        const padding = 5; //定义弹框距边界的位置
+        const anglePadding = 9; //定义小三角距边界的位置，padding加上圆角尺寸
+        // 获取dom的尺寸
+        const { innerText, clientWidth, clientHeight } = dom;
+        const { w, h } = getClientSize(); //浏览器可见区域高宽尺寸
+        const { left, top, bottom, right } = dom.getClientRects()[0];
+        dom.setAttribute('ell-value', innerText);
+
+        // 获取目标dom的style并封装成对象，便于修改
+        let cssTextArr = dom.style.cssText.split(';');
+        let cssObj = {};
+        cssTextArr.forEach((item) => {
+            let arr = item.split(':');
+            cssObj[arr[0]] = arr[1];
+        });
+
+        //获取ell:after的尺寸
+        let afterDom = window.getComputedStyle(dom, 'after');
+        let afterWidth = parseInt(afterDom.width);
+        let afterMaxWidth = parseInt(afterDom.maxWidth);
+        if (afterWidth >= afterMaxWidth) {
+            cssObj['--ell-wrap'] = 'pre-wrap';
+            cssObj['--ell-min-width'] = afterDom.maxWidth;
+            cssObj['--ell-width'] = afterDom.maxWidth;
+        } else {
+            cssObj['--ell-wrap'] = 'nowrap';
+            cssObj['--ell-width'] = afterDom.width;
+        }
+        let cssString = '';
+        for (let key in cssObj) {
+            cssString += key + ':' + cssObj[key] + ';';
+        }
+        dom.style.cssText = cssString;
+        // return
+        afterDom = window.getComputedStyle(dom, 'after');
+        var { paddingBottom, paddingLeft, paddingRight, paddingTop, height, width, maxWidth } = afterDom;
+        let obj = {
+            paddingBottom,
+            paddingLeft,
+            paddingRight,
+            paddingTop,
+            height,
+            width,
+            maxWidth,
+        };
+        for (let key in obj) {
+            obj[key] = parseInt(obj[key]);
+        }
+        var { paddingBottom, paddingLeft, paddingRight, paddingTop, height, width, maxWidth } = obj;
+
+        const afterDomOffsetWidth = width + paddingLeft + paddingRight;
+        const afterDomOffsetHeight = height + paddingTop + paddingBottom;
+
+        //获取ell:before，即气泡框上的小三角的尺寸
+        const beforeDom = window.getComputedStyle(dom, 'before');
+        const borderWidth = parseInt(beforeDom.borderWidth);
+
+        // 根据上一步获取的尺寸，计算ell堤示框能否在视野内完全显示，若不能，强制更换其显示位置
+        if (left - afterDomOffsetWidth - borderWidth < 0 && type === 'left') type = 'right';
+        if (right + afterDomOffsetWidth + borderWidth > w && type === 'right') type = 'left';
+        if (top - afterDomOffsetHeight - borderWidth < 0 && type === 'top') type = 'bottom';
+        if (bottom + afterDomOffsetHeight + borderWidth > h && type === 'bottom') type = 'top';
+
+        //根据ell位置，给style对象设置新值
+        let ellLeft = padding;
+        let ellTop = padding;
+        let angleTop = anglePadding;
+        switch (type) {
+            case 'top':
+                ellLeft = left - (afterDomOffsetWidth - clientWidth) / 2;
+                ellLeft = Math.max(ellLeft, padding);
+                ellLeft = Math.min(ellLeft, w - afterDomOffsetWidth - padding);
+                cssObj['--ell-left'] = `${ellLeft}px`;
+                cssObj['--ell-top'] = `${top - afterDomOffsetHeight - borderWidth}px`;
+                cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - borderWidth / 2}px`;
+                cssObj['--ell-angle-top'] = `${top - borderWidth}px`;
+                break
+            case 'bottom':
+                ellLeft = left - (afterDomOffsetWidth - clientWidth) / 2;
+                ellLeft = Math.max(ellLeft, padding);
+                ellLeft = Math.min(ellLeft, w - afterDomOffsetWidth - padding);
+                cssObj['--ell-left'] = `${ellLeft}px`;
+                cssObj['--ell-top'] = `${bottom + borderWidth}px`;
+                cssObj['--ell-angle-left'] = `${left + clientWidth / 2 - 2.5}px`;
+                cssObj['--ell-angle-top'] = `${bottom - borderWidth}px`;
+                break
+            case 'right':
+                ellTop = top - (afterDomOffsetHeight - clientHeight) / 2;
+                ellTop = Math.max(ellTop, padding);
+                ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding);
+
+                angleTop = top + (clientHeight - borderWidth) / 2;
+                angleTop = Math.max(angleTop, anglePadding);
+                angleTop = Math.min(angleTop, h - borderWidth * 2 - anglePadding);
+
+                cssObj['--ell-left'] = `${right + borderWidth}px`;
+                cssObj['--ell-top'] = `${ellTop}px`;
+                cssObj['--ell-angle-left'] = `${right - borderWidth}px`;
+                cssObj['--ell-angle-top'] = `${angleTop}px`;
+
+                break
+            case 'left':
+                ellTop = top - (afterDomOffsetHeight - clientHeight) / 2;
+                ellTop = Math.max(ellTop, padding);
+                ellTop = Math.min(ellTop, h - afterDomOffsetHeight - padding);
+
+                angleTop = top + (clientHeight - borderWidth) / 2;
+                angleTop = Math.max(angleTop, anglePadding);
+                angleTop = Math.min(angleTop, h - borderWidth * 2 - anglePadding);
+
+                cssObj['--ell-left'] = `${left - afterDomOffsetWidth - borderWidth}px`;
+                cssObj['--ell-top'] = `${ellTop}px`;
+                cssObj['--ell-angle-left'] = `${left - borderWidth}px`;
+                cssObj['--ell-angle-top'] = `${angleTop}px`;
+                break
+        }
+
+        //将新的style对象重新拼接成字符串
+        let cssTextString = '';
+        for (let key in cssObj) {
+            cssTextString += key + ':' + cssObj[key] + ';';
+        }
+        let tooltip = document.getElementById('simply-ellipsis-tooltip');
+        if (!tooltip) {
+            tooltip = document.createElement('div');
+            tooltip.setAttribute('id', 'simply-ellipsis-tooltip');
+            document.body.append(tooltip);
+        }
+        tooltip.setAttribute('ell-value', innerText);
+        tooltip.style.cssText = cssTextString;
+        // 根据实际的ell提示框位置来设置气泡框小三角的朝向
+        ellArr.forEach((item) => {
+            tooltip.classList.remove('has-ell-' + item.type);
+        });
+        tooltip.classList.add('has-ell-' + type);
+        tooltip.classList.add('has-ell');
+        tooltip.classList.add('has-ell-visibility');
+    }
+
+    const setEll = function () {
+        ellArr.forEach((item) => {
+            document.querySelectorAll(item.class).forEach((dom) => {
+                const domRealWidth = dom.scrollWidth;
+                if (domRealWidth > dom.clientWidth) {
+                    dom.addEventListener('mouseover', () => setEllItem(dom, item.type));
+                    dom.addEventListener('mouseleave', () => {
+                        let tooltip = document.getElementById('simply-ellipsis-tooltip');
+                        if (tooltip) {
+                            tooltip.classList.remove('has-ell-visibility');
+                        }
+                    });
+                    // dom.addEventListener('mouseover',()=>console.log(1234))
+                }
+            });
+        });
+    };
+
+    function debounce(fn, t) {
+        let delay = t || 500;
+        let timer;
+        return function () {
+            let args = arguments;
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                timer = null;
+                fn.apply(this, args);
+            }, delay);
+        }
+    }
+
+    // import './src/setStyle.js'
+
+    const setObserver = function (id) {
+        // 观察器的配置（需要观察什么变动）
+        // 如果页面存在持续改变style的动画，会导致防抖函数始终无法得到执行，故取消style的监听
+        const config = {
+            // attributes: true,
+            // attributeFilter: ['style'],
+            subtree: true,
+            childList: true,
+        };
+        const targetNode = document.getElementById(id);
+        // 当观察到变动时执行的回调函数
+        const callback = debounce(function (mutationsList, observer) {
+            console.log(observer);
+            observer.disconnect(); //观察到变动后立即销毁
+            setEll(); //执行操作
+            observer.observe(targetNode, config); //操作完成后再开启监听，避免在上一步操作中，循环触发监听
+        }, 1000);
+
+        // 创建一个观察器实例并传入回调函数
+        const observer = new MutationObserver(callback);
+
+        // 以上述配置开始观察目标节点
+        observer.observe(targetNode, config);
+    };
+
+    var main = {
+        setEll,
+        setObserver,
+    };
+
+    return main;
+
+})));

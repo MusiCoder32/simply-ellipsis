@@ -1,7 +1,7 @@
-import { setEll } from "./setEll.js";
-import { setObserver } from "./setObserver.js";
+import { setEll } from './setEll.js'
+import { setObserver } from './setObserver.js'
 
 export default {
     setEll,
-    setObserver
+    setObserver,
 }

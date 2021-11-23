@@ -1,5 +1,5 @@
 let style = document.createElement('style')
-style.type = 'text/css';
+style.type = 'text/css'
 style.innerHTML = `
 .ell,.ell-l,.ell-r,.ell-t,.ell-b {
     display: inline-block !important;
