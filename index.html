@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link rel="stylesheet" href="example/ellipsis.css" />
-        <title>Hello, World</title>
+        <title>Simply Ellipsis</title>
         <style>
             * {
                 margin: 0;
@@ -27,6 +27,8 @@
                 border: 1px solid #999;
                 padding: 0 10px;
                 border-radius: 4px;
+                position: absolute;
+                z-index: 200;
             }
 
             .item {
@@ -38,14 +40,6 @@
             }
 
             .example-1 {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                justify-content: space-between;
-                flex-direction: column;
-                position: absolute;
-                left: 0;
-                top: 0;
             }
 
             .example-2 {
@@ -61,6 +55,7 @@
                 border: 1px solid gray;
                 margin-top: 20px;
                 overflow: scroll;
+                transform: translate(0, 0);
             }
             .example-3 > div {
                 width: 600px;
@@ -74,19 +69,14 @@
     </head>
     <body id="app" style="position: relative">
         <div class="example-1">
-            <div style="display: flex; justify-content: space-between">
-                <div class="ell-t item-2">设置为ell-t,强制更改为ell-b的效果</div>
-                <div class="ell-r item-2">设置为ell-r,强制更改为ell-l的效果</div>
-            </div>
-            <div style="display: flex; justify-content: space-between">
-                <div class="ell-l item-2">设置为ell-l,强制更改为ell-r的效果</div>
-                <div class="ell-b item-2">设置为ell-b,强制更改为ell-t的效果</div>
-            </div>
+            <div class="ell-t item-2" style="left: 0; top: 0">设置为ell-t,强制更改为ell-b的效果</div>
+            <div class="ell-r item-2" style="right: 0; top: 0">设置为ell-r,强制更改为ell-l的效果</div>
+            <div class="ell-l item-2" style="left: 0; bottom: 0">设置为ell-l,强制更改为ell-r的效果</div>
+            <div class="ell-b item-2" style="right: 0; bottom: 0">设置为ell-b,强制更改为ell-t的效果</div>
         </div>
 
         <div
             style="
-                height: 100%;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
@@ -97,9 +87,15 @@
             "
         >
             <h1 style="padding-top: 20px">simply-ell在线预览</h1>
-            <a style="padding-top: 20px" href="https://www.npmjs.com/package/simply-ellipsis" target="_blank">
-                <h3>详细使用说明文档</h3>
-            </a>
+            <h3 id="currentTime" style="padding-top: 20px;color:dodgerblue"></h3>
+            <div style="padding-top: 20px; font-size: 18px">
+                点击这里，查看详细
+                <span style="font-weight: bolder">
+                    <a style="padding-top: 20px" href="https://www.npmjs.com/package/simply-ellipsis" target="_blank">
+                        说明文档
+                    </a></span
+                >
+            </div>
 
             <h3 style="padding-top: 20px">1.演示四个角落tooltip超出边界时，强制翻转到另一个方向,鼠标悬浮其上查看</h3>
 
@@ -139,54 +135,59 @@
             </div>
 
             <h3 style="padding-top: 20px">3.重点说明</h3>
-            <ul style="width: 800px; padding-top: 20px">
-                <li>scroll的解决办法：监听元素的滚动事件，在滚动事件触发后执行setEll方法即可</li>
-                <li
-                    >知识点普及：监听事件无法冒泡，即无法在window上监听到所有的滚动事件，故需单独处理每一个scroll事件，在事件触发后执行一次setEll，否则会发现tooltip出现在滚动前的位置</li
-                >
-                <li>在排除transform影响的情况下，tooltip位置异常大多由于dom更新后未及时调用setEll</li>
-                <li
-                    >原因在于工具提供的MutationObserver监听只是一个简单方案，无法监听所有影响simply-ellipsis的dom变化</li
-                >
-                <li>此时，开发者需自行根据dom变动情况，及时调用setEll方法</li>
-            </ul>
+            <div style="width: 800px; padding-top: 20px">
+                <h4>版本2.0.2</h4>
+                <ul>
+                    <li style="text-decoration: line-through"
+                        >scroll的解决办法：监听元素的滚动事件，在滚动事件触发后执行setEll方法即可</li
+                    >
+                    <li style="text-decoration: line-through"
+                        >知识点普及：监听事件无法冒泡，即无法在window上监听到所有的滚动事件，故需单独处理每一个scroll事件，在事件触发后执行一次setEll，否则会发现tooltip出现在滚动前的位置</li
+                    >
+                </ul>
+                <h4>版本2.1.0</h4>
+                <ul>
+                    <li>由原生css的hover方案更改为dom的mouseover方案，使用方式仍与原先相同，无需做任何修改</li>
+                    <li>完美解决scroll滚动以及transform对tooltip影响，不再需要特殊处理这两种情况</li>
+                    <li
+                        >唯一需要注意的情况是，全局监听的方式，无法监听到style="display:none"的变化，故该情况下，需在此样式变化后，再次调用setEll方法</li
+                    >
+                </ul>
+            </div>
         </div>
 
         <div style="position: absolute; right: 20px; top: 50%; width: 220px">
-            <h3>问题待解</h3>
-            <div>(思考前先阅读使用说明文档)</div>
+            <h3>下一步更新方向</h3>
             <ul style="padding-top: 10px">
                 <ol
-                    >1. fixed定位方案下如果解决transform影响</ol
-                >
-                <ol
-                    >2. position定位方案下如何解决祖先元素overflow:hidden</ol
+                    >实现多行省略功能</ol
                 >
             </ul>
             <h3 style="padding-top: 10px">欢迎进群交流</h3>
             <div style="color: red">QQ群号：523987240</div>
         </div>
     </body>
-    <!--<script src="dist/simply-ellipsis.js"></script>-->
-    <!--<script>-->
-    <!--window.addEventListener('load', () => {-->
-    <!--  ellipsis.setEll()-->
-    <!--  ellipsis.setObserver('app')-->
-    <!--})-->
-    <!--window.addEventListener('resize', () => {-->
-    <!--  ellipsis.setEll()-->
-    <!--})-->
+    <script src="dist/simply-ellipsis.min.js"></script>
+    <script>
 
-    <!--let scrollDom = document.querySelector('.example-3')-->
-    <!--scrollDom.addEventListener('scroll', ellipsis.setEll)-->
-    <!--</script>-->
-
-    <script type="module">
-        import ellipsis from './src/main.js'
+        let dom = document.getElementById('currentTime')
+        dom.innerText = new Date().toLocaleString()
+        setInterval(() => {
+            dom.childNodes[0].data = new Date().toLocaleString()
+        }, 1000)
 
         window.addEventListener('load', () => {
             ellipsis.setEll()
             ellipsis.setObserver('app')
         })
     </script>
+
+    <!--    <script type="module">-->
+    <!--        import ellipsis from './src/main.js'-->
+
+    <!--        window.addEventListener('load', () => {-->
+    <!--            ellipsis.setEll()-->
+    <!--            ellipsis.setObserver('app')-->
+    <!--        })-->
+    <!--    </script>-->
 </html>
