@@ -46,7 +46,7 @@
 | ell-l| 左侧提示 |
 |ell-r| 右侧提示 |
 
-# 使用技巧
+### 使用技巧
 1. 可重写.has-ell样式来修改提示框的背景色
 
 ```css
@@ -55,22 +55,7 @@
     --ell-background: red !important;
 }
 ```
-
-## fixed与absolution方案论述 （最新版本已不存在该问题）
-在构思方案时，尝试了两个版本，一个版本采用fixed定位，一个版本采用absolution定位。经过不断探索，最终还是决定使用fixed定位的方式
-1. absolution存在的问题
-
-   absolution最大的问题在于，无法绕过祖先元素的overflow:hidden，实际项目中tooltip常常被overflow:hidden所切割，无法全部显示。 其优点在于，不受滚动与transform的影响。
-
-2. fixed存在第一大的问题，一是无法优雅的应用于滚动元素，原因在于元素滚动后，需重新执行setEll计算新的fixed位置，而滚动事件不会向上冒泡，即无法全局设置一次监听解决，需要视情况监听多个滚动事件，在滚动事件结束后执行setEll。
-3. fixed存在的第二大问题，祖先元素存在transform样式时,位置计算出现异常，关于这点，可以查看该链接[https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/](https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/)
-   解决办法有两个，一个是去除祖先元素的transform属性，一个是获取position分支的代码，采用相对定位。
-
-尽管fixed的问题更多，但不被overflow:hidden影响这个特点更为关键，若后续能出新的css属性，能排除受overflow:hidden影响的子元素，那么absolution会是最完美的解决方案。
-仓库中一共有三个分支，一个分支是fixed分支，一个分支是position分支，master分支的代码与fixed分支代码相同
-
-
-###Api说明
+### Api说明
 框架暴露了一个ellipsis的对象，该对象提供了两个方法，分别为setEll,setObserver
 
 1. setEll介绍
@@ -90,7 +75,7 @@
    d.看完上述所有描述，即可明白，重要的是setEll方法,setObserve是可用可不用的。setObserve只配置了观察dom节点变化，无法应对更为复杂的页面变化。在实际项目中，应根据实际情况选择，可以自己配置MutationObserver,也可在页面状态发生改变后，手动调用一次setEll。
 
 
-###2.1.0版本更新说明
+### 2.1.0版本更新说明
 1. 向现实妥协，放弃纯css的hover触发tooltip方式，采用dom的mouseover事件触发tooltip,解决上一版本需单独处理scroll与transform的情况;
 2. 最初的想法过于极端，一方面表现在希望使用时极简，靠一个class名搞定；二是在触发上也做到极简，不依赖于dom的mouseover监听事件,靠css的hover触发；以至于在实现过程中总是无法完美解决面临的所有情况，有了上面关于《fixed与absolution方案论述》
 3. 目前版本单行超长省略提示基本算ok了，下一步目标是实现多行超长省略提示

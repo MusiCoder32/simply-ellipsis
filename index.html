@@ -71,13 +71,12 @@
         <div class="example-1">
             <div class="ell-t item-2" style="left: 0; top: 0">设置为ell-t,强制更改为ell-b的效果</div>
             <div class="ell-r item-2" style="right: 0; top: 0">设置为ell-r,强制更改为ell-l的效果</div>
-            <div class="ell-l item-2" style="left: 0; bottom: 0">设置为ell-l,强制更改为ell-r的效果</div>
-            <div class="ell-b item-2" style="right: 0; bottom: 0">设置为ell-b,强制更改为ell-t的效果</div>
         </div>
 
         <div
             style="
                 width: 100%;
+                overflow: scroll;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -86,9 +85,9 @@
                 z-index: 100;
             "
         >
-            <h1 style="padding-top: 20px">simply-ell在线预览</h1>
-            <h3 id="currentTime" style="padding-top: 20px;color:dodgerblue"></h3>
-            <div style="padding-top: 20px; font-size: 18px">
+            <h1 style="padding-top: 10px">simply-ell在线预览</h1>
+            <h3 id="currentTime" style="padding-top: 20px; color: dodgerblue"></h3>
+            <div style="padding-top: 10px; font-size: 18px">
                 点击这里，查看详细
                 <span style="font-weight: bolder">
                     <a style="padding-top: 20px" href="https://www.npmjs.com/package/simply-ellipsis" target="_blank">
@@ -96,6 +95,13 @@
                     </a></span
                 >
             </div>
+            <div style="padding-top: 10px;font-size: 18px">
+                下版本更新方向
+                <span>1.实现多行省略功能</span>
+                <span>2.disable时，进行原因提示；</span>
+            </div>
+
+            <h3 style="padding-top: 10px">欢迎进群交流<span style="color: red">QQ群号：523987240</span></h3>
 
             <h3 style="padding-top: 20px">1.演示四个角落tooltip超出边界时，强制翻转到另一个方向,鼠标悬浮其上查看</h3>
 
@@ -155,21 +161,9 @@
                 </ul>
             </div>
         </div>
-
-        <div style="position: absolute; right: 20px; top: 50%; width: 220px">
-            <h3>下一步更新方向</h3>
-            <ul style="padding-top: 10px">
-                <ol
-                    >实现多行省略功能</ol
-                >
-            </ul>
-            <h3 style="padding-top: 10px">欢迎进群交流</h3>
-            <div style="color: red">QQ群号：523987240</div>
-        </div>
     </body>
     <script src="dist/simply-ellipsis.min.js"></script>
     <script>
-
         let dom = document.getElementById('currentTime')
         dom.innerText = new Date().toLocaleString()
         setInterval(() => {
