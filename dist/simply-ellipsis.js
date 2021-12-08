@@ -175,14 +175,30 @@
             document.querySelectorAll(item.class).forEach((dom) => {
                 const domRealWidth = dom.scrollWidth;
                 if (domRealWidth > dom.clientWidth) {
-                    dom.addEventListener('mouseover', () => setEllItem(dom, item.type));
-                    dom.addEventListener('mouseleave', () => {
-                        let tooltip = document.getElementById('simply-ellipsis-tooltip');
-                        if (tooltip) {
-                            tooltip.classList.remove('has-ell-visibility');
-                        }
-                    });
-                    // dom.addEventListener('mouseover',()=>console.log(1234))
+                    // 获取浏览器信息，并转小写
+                    let userAgent = navigator.userAgent.toLowerCase();
+                    // 用 test 匹配浏览器信息
+                    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent)) {
+                        dom.ontouchstart = () => {
+                            setEllItem(dom, item.type);
+                        };
+                        dom.ontouchend = () => {
+                            let tooltip = document.getElementById('simply-ellipsis-tooltip');
+                            if (tooltip) {
+                                tooltip.classList.remove('has-ell-visibility');
+                            }
+                        };
+                    } else {
+                        dom.onmouseover = () => {
+                            setEllItem(dom, item.type);
+                        };
+                        dom.onmouseleave = () => {
+                            let tooltip = document.getElementById('simply-ellipsis-tooltip');
+                            if (tooltip) {
+                                tooltip.classList.remove('has-ell-visibility');
+                            }
+                        };
+                    }
                 }
             });
         });
