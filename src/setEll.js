@@ -158,10 +158,12 @@ export const setEll = function () {
                 let userAgent = navigator.userAgent.toLowerCase()
                 // 用 test 匹配浏览器信息
                 if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent)) {
-                    dom.ontouchstart = () => {
+                    dom.ontouchstart = (e) => {
+                        e.preventDefault()
                         setEllItem(dom, item.type)
                     }
-                    dom.ontouchend = () => {
+                    dom.ontouchend = (e) => {
+                        e.preventDefault()
                         let tooltip = document.getElementById('simply-ellipsis-tooltip')
                         if (tooltip) {
                             tooltip.classList.remove('has-ell-visibility')
