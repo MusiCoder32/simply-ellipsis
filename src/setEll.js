@@ -169,6 +169,13 @@ export const setEll = function () {
                             tooltip.classList.remove('has-ell-visibility')
                         }
                     }
+                    dom.touchcancel = (e) => {
+                        e.preventDefault()
+                        let tooltip = document.getElementById('simply-ellipsis-tooltip')
+                        if (tooltip) {
+                            tooltip.classList.remove('has-ell-visibility')
+                        }
+                    }
                 } else {
                     dom.onmouseover = () => {
                         setEllItem(dom, item.type)
