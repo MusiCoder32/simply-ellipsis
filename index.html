@@ -23,7 +23,7 @@
             }
 
             .item-2 {
-                width: 200px;
+                width: 100px;
                 border: 1px solid #999;
                 padding: 0 10px;
                 border-radius: 4px;
@@ -68,24 +68,25 @@
         </style>
     </head>
     <body id="app" style="position: relative">
-        <div class="example-1">
-            <div class="ell-t item-2" style="left: 0; top: 0">设置为ell-t,强制更改为ell-b的效果</div>
-            <div class="ell-r item-2" style="right: 0; top: 0">设置为ell-r,强制更改为ell-l的效果</div>
-        </div>
-
         <div
             style="
                 width: 100%;
-                overflow: scroll;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: center;
                 position: relative;
                 z-index: 100;
+                padding-bottom:20px;
             "
         >
-            <h1 style="padding-top: 10px">simply-ell在线预览</h1>
+            <div class="ell-t item-2" style="left: 0; top: 0">设置为ell-t,强制更改为ell-b的效果</div>
+            <div class="ell-r item-2" style="right: 0; top: 0">设置为ell-r,强制更改为ell-l的效果</div>
+            <div class="ell-l item-2" style="left: 0; bottom: 0">设置为ell-l,强制更改为ell-r的效果</div>
+            <div class="ell-b item-2" style="right: 0; bottom: 0">设置为ell-b,强制更改为ell-t的效果</div>
+
+
+            <h1 style="padding-top: 30px">simply-ell在线预览</h1>
             <h3 id="currentTime" style="padding-top: 20px; color: dodgerblue"></h3>
             <div style="padding-top: 10px; font-size: 18px">
                 点击这里，查看详细
@@ -95,7 +96,7 @@
                     </a></span
                 >
             </div>
-            <div style="padding-top: 10px;font-size: 18px">
+            <div style="padding-top: 10px; font-size: 18px">
                 下版本更新方向
                 <span>1.实现多行省略功能</span>
                 <span>2.disable时，进行原因提示；</span>
@@ -162,26 +163,26 @@
             </div>
         </div>
     </body>
-    <script src="dist/simply-ellipsis.min.js"></script>
-    <script>
-        let dom = document.getElementById('currentTime')
-        dom.innerText = new Date().toLocaleString()
-        setInterval(() => {
-            dom.childNodes[0].data = new Date().toLocaleString()
-        }, 1000)
-
-        window.addEventListener('load', () => {
-            ellipsis.setEll()
-            ellipsis.setObserver('app')
-        })
-    </script>
-
-    <!--    <script type="module">-->
-    <!--        import ellipsis from './src/main.js'-->
+    <!--    <script src="dist/simply-ellipsis.min.js"></script>-->
+    <!--    <script>-->
+    <!--        let dom = document.getElementById('currentTime')-->
+    <!--        dom.innerText = new Date().toLocaleString()-->
+    <!--        setInterval(() => {-->
+    <!--            dom.childNodes[0].data = new Date().toLocaleString()-->
+    <!--        }, 1000)-->
 
     <!--        window.addEventListener('load', () => {-->
     <!--            ellipsis.setEll()-->
     <!--            ellipsis.setObserver('app')-->
     <!--        })-->
     <!--    </script>-->
+
+    <script type="module">
+        import ellipsis from './src/main.js'
+
+        window.addEventListener('load', () => {
+            ellipsis.setEll()
+            ellipsis.setObserver('app')
+        })
+    </script>
 </html>
