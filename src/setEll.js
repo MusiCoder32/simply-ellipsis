@@ -157,7 +157,7 @@ function setEllItem(dom, type) {
 export const setEll = function () {
     ellArr.forEach((item) => {
         document.querySelectorAll(item.class).forEach((dom) => {
-            if (dom.scrollWidth >= dom.offsetWidth) {
+            if (dom.scrollWidth > dom.offsetWidth) {
                 setEllAction(dom,item.type)
             }
         })
