@@ -6,7 +6,12 @@ const ellArr = [
     { class: '.ell-t', type: 'top' },
     { class: '.ell-b', type: 'bottom' },
 ]
-
+const ellnArr = [
+    { class: '.elln-l', type: 'left' },
+    { class: '.elln-r', type: 'right' },
+    { class: '.elln-t', type: 'top' },
+    { class: '.elln-b', type: 'bottom' },
+]
 function setEllItem(dom, type) {
     const padding = 5 //定义弹框距边界的位置
     const anglePadding = 9 //定义小三角距边界的位置，padding加上圆角尺寸
@@ -152,42 +157,52 @@ function setEllItem(dom, type) {
 export const setEll = function () {
     ellArr.forEach((item) => {
         document.querySelectorAll(item.class).forEach((dom) => {
-            const domRealWidth = dom.scrollWidth
-            if (domRealWidth > dom.clientWidth) {
-                // 获取浏览器信息，并转小写
-                let userAgent = navigator.userAgent.toLowerCase()
-                // 用 test 匹配浏览器信息
-                if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent)) {
-                    dom.ontouchstart = (e) => {
-                        e.preventDefault()
-                        setEllItem(dom, item.type)
-                    }
-                    dom.ontouchend = (e) => {
-                        e.preventDefault()
-                        let tooltip = document.getElementById('simply-ellipsis-tooltip')
-                        if (tooltip) {
-                            tooltip.classList.remove('has-ell-visibility')
-                        }
-                    }
-                    dom.touchcancel = (e) => {
-                        e.preventDefault()
-                        let tooltip = document.getElementById('simply-ellipsis-tooltip')
-                        if (tooltip) {
-                            tooltip.classList.remove('has-ell-visibility')
-                        }
-                    }
-                } else {
-                    dom.onmouseover = () => {
-                        setEllItem(dom, item.type)
-                    }
-                    dom.onmouseleave = () => {
-                        let tooltip = document.getElementById('simply-ellipsis-tooltip')
-                        if (tooltip) {
-                            tooltip.classList.remove('has-ell-visibility')
-                        }
-                    }
-                }
+            if (dom.scrollWidth >= dom.offsetWidth) {
+                setEllAction(dom,item.type)
             }
         })
     })
+    ellnArr.forEach((item) => {
+        document.querySelectorAll(item.class).forEach((dom) => {
+            if (dom.scrollHeight > dom.offsetHeight) {
+                setEllAction(dom,item.type)
+            }
+        })
+    })
+}
+
+function setEllAction(dom,type) {
+    // 获取浏览器信息，并转小写
+    let userAgent = navigator.userAgent.toLowerCase()
+    // 用 test 匹配浏览器信息
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent)) {
+        dom.ontouchstart = (e) => {
+            e.preventDefault()
+            setEllItem(dom, type)
+        }
+        dom.ontouchend = (e) => {
+            e.preventDefault()
+            let tooltip = document.getElementById('simply-ellipsis-tooltip')
+            if (tooltip) {
+                tooltip.classList.remove('has-ell-visibility')
+            }
+        }
+        dom.touchcancel = (e) => {
+            e.preventDefault()
+            let tooltip = document.getElementById('simply-ellipsis-tooltip')
+            if (tooltip) {
+                tooltip.classList.remove('has-ell-visibility')
+            }
+        }
+    } else {
+        dom.onmouseover = () => {
+            setEllItem(dom, type)
+        }
+        dom.onmouseleave = () => {
+            let tooltip = document.getElementById('simply-ellipsis-tooltip')
+            if (tooltip) {
+                tooltip.classList.remove('has-ell-visibility')
+            }
+        }
+    }
 }

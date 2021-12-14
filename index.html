@@ -65,6 +65,9 @@
             ul > li {
                 margin-bottom: 10px;
             }
+            .example-4 {
+                width: 400px;
+            }
         </style>
     </head>
     <body id="app" style="position: relative">
@@ -77,7 +80,7 @@
                 align-items: center;
                 position: relative;
                 z-index: 100;
-                padding-bottom:20px;
+                padding-bottom: 20px;
             "
         >
             <div class="ell-t item-2" style="left: 0; top: 0">设置为ell-t,强制更改为ell-b的效果</div>
@@ -85,8 +88,7 @@
             <div class="ell-l item-2" style="left: 0; bottom: 0">设置为ell-l,强制更改为ell-r的效果</div>
             <div class="ell-b item-2" style="right: 0; bottom: 0">设置为ell-b,强制更改为ell-t的效果</div>
 
-
-            <h1 style="padding-top: 30px">simply-ell在线预览</h1>
+            <h1 style="padding-top: 30px">simply-ellipsis在线预览</h1>
             <h3 id="currentTime" style="padding-top: 20px; color: dodgerblue"></h3>
             <div style="padding-top: 10px; font-size: 18px">
                 点击这里，查看详细
@@ -96,13 +98,13 @@
                     </a></span
                 >
             </div>
-            <div style="padding-top: 10px; font-size: 18px">
-                下版本更新方向
+            <div style="padding-top: 10px; font-size: 18px;color: red">
+                <span style="font-weight: bolder;">重大更新</span>
                 <span>1.实现多行省略功能</span>
-                <span>2.disable时，进行原因提示；</span>
+                <span>2.实现tooltip自定义样式</span>
             </div>
 
-            <h3 style="padding-top: 10px">欢迎进群交流<span style="color: red">QQ群号：523987240</span></h3>
+            <h3 style="padding-top: 10px">欢迎进群建议，提改进需求<span style="color: red">QQ群号：523987240</span></h3>
 
             <h3 style="padding-top: 20px">1.演示四个角落tooltip超出边界时，强制翻转到另一个方向,鼠标悬浮其上查看</h3>
 
@@ -140,49 +142,81 @@
                     </div>
                 </div>
             </div>
+            <h3 style="text-align: center; padding-top: 20px">4.演示多行省略</h3>
+            <h5 style="margin-top: 10px">设置2行超长省略</h5>
+            <div class="example-4 elln-b" style="--ell-line: 2">
+                设置2行超长省略。Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur culpa dolores
+                ipsum iusto maxime nihil, nostrum nulla omnis quis ratione sed sequi suscipit?
+            </div>
+            <h5 style="margin-top: 10px">设置3行超长省略</h5>
+            <div class="example-4 elln-b" style="--ell-line: 3">
+                设置为3行超长省略。Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur culpa dolores
+                ipsum iusto maxime nihil, nostrum nulla omnis quis ratione sed sequi suscipit?
+            </div>
+            <h5 style="margin-top: 10px">设置4行超长省略，由于未超长，不出现tooltip</h5>
+            <div class="example-4 elln-b" style="--ell-line: 4">
+                设置为4行超长省略，由于未超长，故不出现tooltip。Lorem ipsum dolor sit amet, consectetur adipisicing
+                elit. Consequatur culpa dolores ipsum iusto maxime nihil, nostrum nulla?
+            </div>
 
-            <h3 style="padding-top: 20px">3.重点说明</h3>
+            <h3 style="padding-top: 20px">5.重点说明</h3>
             <div style="width: 800px; padding-top: 20px">
-                <h4>版本2.0.2</h4>
-                <ul>
-                    <li style="text-decoration: line-through"
-                        >scroll的解决办法：监听元素的滚动事件，在滚动事件触发后执行setEll方法即可</li
-                    >
-                    <li style="text-decoration: line-through"
-                        >知识点普及：监听事件无法冒泡，即无法在window上监听到所有的滚动事件，故需单独处理每一个scroll事件，在事件触发后执行一次setEll，否则会发现tooltip出现在滚动前的位置</li
-                    >
-                </ul>
                 <h4>版本2.1.0</h4>
                 <ul>
                     <li>由原生css的hover方案更改为dom的mouseover方案，使用方式仍与原先相同，无需做任何修改</li>
                     <li>完美解决scroll滚动以及transform对tooltip影响，不再需要特殊处理这两种情况</li>
                     <li
-                        >唯一需要注意的情况是，全局监听的方式，无法监听到style="display:none"的变化，故该情况下，需在此样式变化后，再次调用setEll方法</li
+                        >需要注意的情况是，全局监听的方式，无法监听到style="display:none"的变化，由此导致tooltip不生效，解决方式详见
+                        <span style="font-weight: bolder">
+                            <a
+                                style="padding-top: 20px"
+                                href="https://www.npmjs.com/package/simply-ellipsis"
+                                target="_blank"
+                            >
+                                说明文档
+                            </a></span
+                        >第6部分疑难解答
+                    </li>
+                </ul>
+                <h4>版本2.2.0</h4>
+                <ul>
+                    <li>初次引入多行省略功能，同单行一样，只会超长才提示，同时会自动调整位置保持tooltip在视图内</li>
+                    <li
+                        >整理了tooltip相关样式，便于各位开发者进行自定义tooltip样式，说见
+                        <span style="font-weight: bolder">
+                            <a
+                                style="padding-top: 20px"
+                                href="https://www.npmjs.com/package/simply-ellipsis"
+                                target="_blank"
+                            >
+                                说明文档
+                            </a></span
+                        >第3部分关于自定义样式的说明</li
                     >
                 </ul>
             </div>
         </div>
     </body>
-        <script src="dist/simply-ellipsis.min.js"></script>
-        <script>
-            let dom = document.getElementById('currentTime')
-            dom.innerText = new Date().toLocaleString()
-            setInterval(() => {
-                dom.childNodes[0].data = new Date().toLocaleString()
-            }, 1000)
+    <!--        <script src="dist/simply-ellipsis.min.js"></script>-->
+    <!--        <script>-->
+    <!--            let dom = document.getElementById('currentTime')-->
+    <!--            dom.innerText = new Date().toLocaleString()-->
+    <!--            setInterval(() => {-->
+    <!--                dom.childNodes[0].data = new Date().toLocaleString()-->
+    <!--            }, 1000)-->
 
-            window.addEventListener('load', () => {
-                ellipsis.setEll()
-                ellipsis.setObserver('app')
-            })
-        </script>
+    <!--            window.addEventListener('load', () => {-->
+    <!--                ellipsis.setEll()-->
+    <!--                ellipsis.setObserver('app')-->
+    <!--            })-->
+    <!--        </script>-->
 
-<!--    <script type="module">-->
-<!--        import ellipsis from './src/main.js'-->
+    <script type="module">
+        import ellipsis from './src/main.js'
 
-<!--        window.addEventListener('load', () => {-->
-<!--            ellipsis.setEll()-->
-<!--            ellipsis.setObserver('app')-->
-<!--        })-->
-<!--    </script>-->
+        window.addEventListener('load', () => {
+            ellipsis.setEll()
+            ellipsis.setObserver('app')
+        })
+    </script>
 </html>

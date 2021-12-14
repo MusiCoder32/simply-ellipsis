@@ -1,5 +1,16 @@
-.has-ell {
+/*<--修改ell-tooltip样式*/
+html {
+    --ell-max-width: 350px;
     --ell-background: rgb(48 49 51);
+    --ell-font-size: 12px;
+    --ell-padding: 10px;
+    --ell-line-height: 1.2;
+    --ell-color: #fff;
+    --ell-border-radius: 4px;
+}
+/*修改ell-tooltip样式-->*/
+
+.has-ell {
     --ell-left: 0;
     --ell-top: 0;
     --ell-angle-left: 0;
@@ -28,22 +39,33 @@
 .ell-l:after,
 .ell-r:after,
 .ell-t:after,
-.ell-b:after {
+.ell-b:after,
+.elln-l:after,
+.elln-r:after,
+.elln-t:after,
+.elln-b:after {
     position: fixed;
     content: attr(ell-value);
     left: 0;
     top: 0;
-    max-width: 250px;
+    max-width: var(--ell-max-width);
     min-width: var(--ell-min-width);
-    font-size: 12px;
-    padding: 10px;
-    line-height: 1.2;
+    font-size: var(--ell-font-size);
+    padding: var(--ell-padding);
+    line-height: var(--ell-line-height);
+    color: var(--ell-color);
+    border-radius: var(--ell-border-radius);
+
     box-sizing: content-box !important;
     visibility: hidden;
     opacity: 0;
     white-space: var(--ell-wrap);
 }
 
+.elln-l:before,
+.elln-r:before,
+.elln-t:before,
+.elln-b:before,
 .ell-l:before,
 .ell-r:before,
 .ell-t:before,
@@ -67,17 +89,30 @@
     text-overflow: ellipsis;
     display: block !important;
 }
+.elln-l,
+.elln-r,
+.elln-t,
+.elln-b {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--ell-line);
+    overflow: hidden;
+    word-break: break-all;
+}
 /*.ell-l:hover, .ell-r:hover, .ell-t:hover, .ell-b:hover {*/
 /*  overflow: visible;*/
 /*}*/
 
 .has-ell:after {
-    max-width: 250px;
-    font-size: 12px;
-    padding: 10px;
-    line-height: 1.2;
+    max-width: var(--ell-max-width);
+    font-size: var(--ell-font-size);
+    padding: var(--ell-padding);
+    line-height: var(--ell-line-height);
+    color: var(--ell-color);
+    border-radius: var(--ell-border-radius);
     box-sizing: content-box !important;
 
+    text-align: left;
     content: attr(ell-value);
     position: fixed;
     left: var(--ell-left);
@@ -85,9 +120,7 @@
     white-space: var(--ell-wrap);
     width: var(--ell-width);
     background-color: var(--ell-background);
-    color: #fff;
-    text-align: left;
-    border-radius: 4px;
+    word-break: break-all;
     transition: visibility 0.5s, opacity 0.5s;
     z-index: 10000;
     visibility: hidden;
