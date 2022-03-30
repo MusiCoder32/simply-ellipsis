@@ -1,16 +1,18 @@
 # 简介
-**simply-ellipsis是纯原生技术实现的tooltip功能，解决ui组件tooltip功能不够全面的问题**
+**simply-ellipsis是纯原生技术实现的功能强大的tooltip**
 
 **在线预览 [http://sichuan_meiyijia_industry_w327134.gitee.io/ellipsis/](http://sichuan_meiyijia_industry_w327134.gitee.io/ellipsis/)**
 
 1. 解决tooltip不超长也会提示问题
-2. 解决tooltip超出边界时不会自动调整的问题（gif最后部分有演示，原本设置tooltip方向为下方出现，当滚动到页面底部时，自动调整为上方出现）
+2. 解决tooltip超出边界时不会自动调整的问题
 3. 解决多行提示
-   ![请添加图片描述](https://img-blog.csdnimg.cn/0ee875fe3e164996a3f804c91d4d2102.gif)
-   
 
-### 1.原生集成方式
+# 使用时一定要阅读下方的疑难解答，否则会导致引入不生效！！！
+![请添加图片描述](https://img-blog.csdnimg.cn/0ee875fe3e164996a3f804c91d4d2102.gif)
 
+
+### 1.集成方式
+#### 原生
 ```html
 <link rel="stylesheet" href="ellipsis.css"/>
 <script src="../dist/simply-ellipsis.js"></script>
@@ -26,8 +28,24 @@
 2. 引入dist文件夹下的simply-ellipsis.js
 3. 调用ellipsis方法，传入id，指定监听的dom
 
-   ###### 具体可参考根目录下index.html中的使用方法，react、angler、vue等项目采用全局监听时均采取该方式；
+   ###### 具体可参考根目录下index.html中的使用方法，react、angler、vue等项目采用全局监听时均可采取该方式；
    ###### 若采取手动维护的方式，即不执行setObserver监听的情况下，则需在组件生命周期勾子函数中，代表dom挂载完成的勾子函数中执行setEll方法，对于vue框架,则是在每个组件的mounted勾子函数中执行setEll。
+
+#### VUE
+```javascript
+//安装
+npm i simply-ellipsis -S
+
+//main.js/ts中引入
+import ellipsis from 'simply-ellipsis'
+import 'simply-ellipsis/example/ellipsis.css'
+
+// main.js中全局调用
+window.addEventListener('load', () => {
+    ellipsis.setEll()
+    ellipsis.setObserver('app')
+})
+```
 
 ### 2.使用方式
 框架集成到项目后，只需在需要省略提示的div中,使用示例中的class。注意事项：
@@ -88,10 +106,6 @@ html {
 1. 向现实妥协，放弃纯css的hover触发tooltip方式，采用dom的mouseover事件触发tooltip,解决上一版本需单独处理scroll与transform的情况;
 2. 最初的想法过于极端，一方面表现在希望使用时极简，靠一个class名搞定；二是在触发上也做到极简，不依赖于dom的mouseover监听事件,靠css的hover触发；以至于在实现过程中总是无法完美解决面临的所有情况，有了上面关于《fixed与absolution方案论述》
 3. 目前版本单行超长省略提示基本算ok了，下一步目标是实现多行超长省略提示
-   
-**2.2.0**
-1. 实现多行超长省略；
-2. 实现自定义tooltip样式；
 ### 6.疑难解答
 1. 问：完全按照教程使用，大部分生效，部分不生效，主要是高德地图与百度地图的信息弹窗中使用不生效？
 
@@ -101,6 +115,17 @@ html {
 
 
 ```javascript
+<div id="timer" class="f12">{{ time }}</div>
+
 //dom无初值时先赋初值，具有初值后，会有childNodes,更新时采取如下方式
-dom.childNodes[0].data = newValue
+setTime() {
+    let nowTime = new Date()
+    let date = moment(nowTime).format('YYYY年MM月DD日')
+    let time = moment(nowTime).format('HH:mm:ss')
+    if (!this.time) {
+        this.time = date + '  ' + '  ' + time
+    } else {
+        this._dom.childNodes[0].data = date + '  ' + '  ' + time //重要，重要，重要
+    }
+}
 ```
