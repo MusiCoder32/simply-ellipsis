@@ -1,0 +1,188 @@
+/*<--修改ell-tooltip样式*/
+html {
+    --ell-max-width: 350px;
+    --ell-background: rgb(48 49 51);
+    --ell-font-size: 12px;
+    --ell-padding: 10px;
+    --ell-line-height: 1.2;
+    --ell-color: #fff;
+    --ell-border-radius: 4px;
+}
+/*修改ell-tooltip样式-->*/
+
+.has-ell {
+    --ell-left: 0;
+    --ell-top: 0;
+    --ell-angle-left: 0;
+    --ell-angle-top: 0;
+    --ell-wrap: nowrap;
+    --ell-width: 0;
+    position: relative;
+    --ell-min-width: 0;
+}
+
+/*调试代码，放开注释能让页面中所有tooltip显示出来，便于调试*/
+/*.ell-l:after, .ell-r:after, .ell-t:after, .ell-b:after,.ell-l:before, .ell-r:before, .ell-t:before, .ell-b:before,.has-ell:after,.has-ell:before {*/
+/*  visibility: visible !important;*/
+/*  opacity: 1 !important;*/
+/*}*/
+
+.ell {
+    /* 作为子无素，若设置为inline-block,可能会撑高父元素高度，故强制为block*/
+    display: block !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: content-box !important;
+}
+
+.ell-l,
+.ell-r,
+.ell-t,
+.ell-b,
+.ell-a-l,
+.ell-a-r,
+.ell-a-t,
+.ell-a-b,
+.ell-m-l,
+.ell-m-r,
+.ell-m-t,
+.ell-m-b,
+.elln-l,
+.elln-r,
+.elln-t,
+.elln-b {
+    &:after {
+        position: fixed;
+        content: attr(ell-value);
+        left: 0;
+        top: 0;
+        max-width: var(--ell-max-width);
+        min-width: var(--ell-min-width);
+        font-size: var(--ell-font-size);
+        padding: var(--ell-padding);
+        line-height: var(--ell-line-height);
+        color: var(--ell-color);
+        border-radius: var(--ell-border-radius);
+
+        box-sizing: content-box !important;
+        visibility: hidden;
+        opacity: 0;
+        white-space: var(--ell-wrap);
+    }
+    &:before {
+        content: '';
+        position: fixed;
+        left: 0;
+        top: 0;
+        border-width: 5px;
+        border-style: solid;
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+.ell-a-l,
+.ell-a-r,
+.ell-a-t,
+.ell-a-b,
+.ell-l,
+.ell-r,
+.ell-t,
+.ell-b {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block !important;
+}
+
+.ell-m-l,
+.ell-m-r,
+.ell-m-t,
+.ell-m-b,
+.elln-l,
+.elln-r,
+.elln-t,
+.elln-b {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--ell-line);
+    overflow: hidden;
+    word-break: break-all;
+}
+/*.ell-l:hover, .ell-r:hover, .ell-t:hover, .ell-b:hover {*/
+/*  overflow: visible;*/
+/*}*/
+
+.has-ell:after {
+    max-width: var(--ell-max-width);
+    font-size: var(--ell-font-size);
+    padding: var(--ell-padding);
+    line-height: var(--ell-line-height);
+    color: var(--ell-color);
+    border-radius: var(--ell-border-radius);
+    box-sizing: content-box !important;
+
+    text-align: left;
+    content: attr(ell-value);
+    position: fixed;
+    left: var(--ell-left);
+    top: var(--ell-top);
+    white-space: var(--ell-wrap);
+    width: var(--ell-width);
+    background-color: var(--ell-background);
+    word-break: break-all;
+    transition: visibility 0.5s, opacity 0.5s;
+    z-index: 10000;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.has-ell:before {
+    content: '';
+    position: fixed;
+    left: var(--ell-angle-left);
+    top: var(--ell-angle-top);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--ell-background) transparent transparent transparent;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s;
+    z-index: 10000;
+
+    box-sizing: content-box !important;
+}
+.has-ell-hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+.has-ell-visibility:before,
+.has-ell-visibility:after {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+.has-ell-top:before {
+    border-color: var(--ell-background) transparent transparent transparent;
+}
+
+.has-ell-bottom:before {
+    border-color: transparent transparent var(--ell-background) transparent;
+}
+
+.has-ell-right:before {
+    border-color: transparent var(--ell-background) transparent transparent;
+}
+
+.has-ell-left:before {
+    border-color: transparent transparent transparent var(--ell-background);
+}
+
+.has-ell:hover:after {
+    visibility: visible;
+    opacity: 1;
+}
+
+.has-ell:hover:before {
+    visibility: visible;
+    opacity: 1;
+}

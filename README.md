@@ -38,7 +38,7 @@ npm i simply-ellipsis -S
 
 //main.js/ts中引入
 import ellipsis from 'simply-ellipsis'
-import 'simply-ellipsis/example/ellipsis.css'
+import 'simply-ellipsis/example/ellipsis.scss'
 
 // main.js中全局调用
 window.addEventListener('load', () => {

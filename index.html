@@ -54,13 +54,10 @@
                 height: 200px;
                 border: 1px solid gray;
                 margin-top: 20px;
-                overflow: scroll;
-                transform: translate(0, 0);
+                overflow: hidden;
             }
-            .example-3 > div {
-                width: 600px;
-                height: 200px;
-                padding: 50px;
+            .example-3 .item {
+                width: 100px;
             }
             ul > li {
                 margin-bottom: 10px;
@@ -98,8 +95,8 @@
                     </a></span
                 >
             </div>
-            <div style="padding-top: 10px; font-size: 18px;color: red">
-                <span style="font-weight: bolder;">重大更新</span>
+            <div style="padding-top: 10px; font-size: 18px; color: red">
+                <span style="font-weight: bolder">重大更新</span>
                 <span>1.实现多行省略功能</span>
                 <span>2.实现tooltip自定义样式</span>
             </div>
@@ -108,9 +105,7 @@
 
             <h3 style="padding-top: 20px">1.演示四个角落tooltip超出边界时，强制翻转到另一个方向,鼠标悬浮其上查看</h3>
 
-            <h3 style="text-align: center; padding-top: 20px"
-                >2.演示正常情况下显示效果，完全不受父元素overflow:hidden影响</h3
-            >
+            <h3 style="text-align: center; padding-top: 20px">2.演示正常情况下显示效果</h3>
             <div class="example-2">
                 <div style="display: flex; justify-content: center">
                     <div class="ell-t item">顶部ell-t</div>
@@ -125,21 +120,19 @@
                 </div>
             </div>
 
-            <h3 style="text-align: center; padding-top: 20px">3.演示如何解决滚动影响</h3>
+            <h3 style="text-align: center; padding-top: 20px">3.演示无论是否超长均提示</h3>
 
             <div class="example-3">
-                <div>
-                    <div style="display: flex; justify-content: center">
-                        <div class="ell-t item">顶部ell-t</div>
-                    </div>
-                    <div style="display: flex; justify-content: center">
-                        <div class="ell-l item">左侧ell-l</div>
-                        <div class="ell item" style="width: 130px">只省略，不提示 只省略，不提示</div>
-                        <div class="ell-r item">右侧ell-r</div>
-                    </div>
-                    <div style="display: flex; justify-content: center">
-                        <div class="ell-b item">底部ell-t</div>
-                    </div>
+                <div style="display: flex; justify-content: center">
+                    <div class="ell-a-t item">顶部ell-t</div>
+                </div>
+                <div style="display: flex; justify-content: center">
+                    <div class="ell-a-l item">左侧ell-l</div>
+                    <div class="ell-a-t item">演示无论是否超长均提示</div>
+                    <div class="ell-a-r item">右侧ell-r</div>
+                </div>
+                <div style="display: flex; justify-content: center">
+                    <div class="ell-a-b item">底部ell-t</div>
                 </div>
             </div>
             <h3 style="text-align: center; padding-top: 20px">4.演示多行省略</h3>
@@ -197,26 +190,26 @@
             </div>
         </div>
     </body>
-            <script src="dist/simply-ellipsis.min.js"></script>
-            <script>
-                let dom = document.getElementById('currentTime')
-                dom.innerText = new Date().toLocaleString()
-                setInterval(() => {
-                    dom.childNodes[0].data = new Date().toLocaleString()
-                }, 1000)
+    <!--    <script src="dist/simply-ellipsis.min.js"></script>-->
+    <!--    <script>-->
+    <!--        let dom = document.getElementById('currentTime')-->
+    <!--        dom.innerText = new Date().toLocaleString()-->
+    <!--        setInterval(() => {-->
+    <!--            dom.childNodes[0].data = new Date().toLocaleString()-->
+    <!--        }, 1000)-->
 
-                window.addEventListener('load', () => {
-                    ellipsis.setEll()
-                    ellipsis.setObserver('app')
-                })
-            </script>
+    <!--        window.addEventListener('load', () => {-->
+    <!--            ellipsis.setEll()-->
+    <!--            ellipsis.setObserver('app')-->
+    <!--        })-->
+    <!--    </script>-->
 
-<!--    <script type="module">-->
-<!--        import ellipsis from './src/main.js'-->
+    <script type="module">
+        import ellipsis from './src/main.js'
 
-<!--        window.addEventListener('load', () => {-->
-<!--            ellipsis.setEll()-->
-<!--            ellipsis.setObserver('app')-->
-<!--        })-->
-<!--    </script>-->
+        window.addEventListener('load', () => {
+            ellipsis.setEll()
+            ellipsis.setObserver('app')
+        })
+    </script>
 </html>

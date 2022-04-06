@@ -6,7 +6,18 @@ const ellArr = [
     { class: '.ell-t', type: 'top' },
     { class: '.ell-b', type: 'bottom' },
 ]
-const ellnArr = [
+const ellAlwaysArr = [
+    { class: '.ell-a-l', type: 'left' },
+    { class: '.ell-a-r', type: 'right' },
+    { class: '.ell-a-t', type: 'top' },
+    { class: '.ell-a-b', type: 'bottom' },
+]
+const ellMultipleArr = [
+    { class: '.ell-m-l', type: 'left' },
+    { class: '.ell-m-r', type: 'right' },
+    { class: '.ell-m-t', type: 'top' },
+    { class: '.ell-m-b', type: 'bottom' },
+    // 用于兼容上个版本的命名
     { class: '.elln-l', type: 'left' },
     { class: '.elln-r', type: 'right' },
     { class: '.elln-t', type: 'top' },
@@ -158,20 +169,25 @@ export const setEll = function () {
     ellArr.forEach((item) => {
         document.querySelectorAll(item.class).forEach((dom) => {
             if (dom.scrollWidth > dom.offsetWidth) {
-                setEllAction(dom,item.type)
+                setEllAction(dom, item.type)
             }
         })
     })
-    ellnArr.forEach((item) => {
+    ellAlwaysArr.forEach((item) => {
+        document.querySelectorAll(item.class).forEach((dom) => {
+            setEllAction(dom, item.type)
+        })
+    })
+    ellMultipleArr.forEach((item) => {
         document.querySelectorAll(item.class).forEach((dom) => {
             if (dom.scrollHeight > dom.offsetHeight) {
-                setEllAction(dom,item.type)
+                setEllAction(dom, item.type)
             }
         })
     })
 }
 
-function setEllAction(dom,type) {
+function setEllAction(dom, type) {
     // 获取浏览器信息，并转小写
     let userAgent = navigator.userAgent.toLowerCase()
     // 用 test 匹配浏览器信息
