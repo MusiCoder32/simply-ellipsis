@@ -1,15 +1,15 @@
+
 # 简介
-**simply-ellipsis是纯原生技术实现的功能强大的tooltip**
+**simply-ellipsis是纯原生技术实现的tooltip工具，具备以下功能**
+1. tooltip超出边界时自动调整其位置，保证提示框在视界内；
+2. 可配置单行是否超长才提示；
+3. 可配置多行提示；
+4. 可自定义提示内容；
 
 **在线预览 [http://sichuan_meiyijia_industry_w327134.gitee.io/ellipsis/](http://sichuan_meiyijia_industry_w327134.gitee.io/ellipsis/)**
 
-**1. 解决tooltip不超长也会提示问题**
-**2. 解决tooltip超出边界时不会自动调整的问题**
-**3. 解决多行提示**
-
-# 使用时一定要阅读下方的疑难解答，否则会导致引入不生效！！！
-![请添加图片描述](https://img-blog.csdnimg.cn/0ee875fe3e164996a3f804c91d4d2102.gif)
-
+**gif展示**
+![请添加图片描述](https://img-blog.csdnimg.cn/ea87e21685ab483eae4a7484e7e988e1.gif)
 
 ### 1.集成方式
 #### 原生
@@ -48,22 +48,31 @@ window.addEventListener('load', () => {
 ```
 
 ### 2.使用方式
-框架集成到项目后，只需在需要省略提示的div中,使用示例中的class。注意事项：
-1. class必须直接应用到包裹文字的元素中，目前仅测试了div/span；
-2. 元素本身需设置固定宽度；
-2. 多行超长省略需设置style="--ell-line:Number"；
+框架集成到项目后，只需在需要省略提示的div中,使用示例中的class。目前有三类class，两个额外配置项。
+**三类class：**
+1. .ell-t、.ell-b、.ell-r、.ell-l
+   用于智能判断，文本超长时才提示，不超长时则不提示，元素本身需设置固定宽度，参考在线预览《2.演示单行文字超长情况下进行提示》；
+2. .ell-a-t、.ell-a-b、.ell-a-r、.ell-a-l"
+   "a"代表always,即不管是否超长，均进行提示。参考在线预览《3.演示单行、多行无论是否超长均提示》；
+3. .ell-m-t、.ell-m-b、.ell-m-r、.ell-m-l
+   m代表multiply,即应用于多行超长提示，**该类class必须搭配--ell-line样式变量方可生效**。参考在线预览《5.演示多行仅超长时进行提示》；
+
+**两个配置项：**
+1. ell-value
+   用于自定义toottip提示内容，可与上面三类class搭配。参考在线预览《4.演示单行、多行无论是否超长均提示》；
+2. style="--ell-line:行数"
+   搭配多行超长提示，用于设置多行文本行数。参考在线预览《3.演示单行、多行无论是否超长均提示》；
 
 ```html
-<!--单行-->
+<!--单行超长提示-->
 <div class="ell-t">ellipsis在顶部提示</div>
-<span class="ell-b">ellipsis在底部提示</span>
-<span class="ell-l">ellipsis在左侧提示</span>
-<span class="ell-r">ellipsis在右侧提示</span>
-<!--多行-->
-<div class="elln-t" style="--ell-line:3">ellipsis多行顶部提示,行数设置为3</div>
-<div class="elln-b" style="--ell-line:2">ellipsis多行底部提示,行数设置为2</div>
-<div class="elln-l" style="--ell-line:4">ellipsis多行左侧提示,行数设置为4</div>
-<div class="elln-r" style="--ell-line:5">ellipsis多行左侧提示,行数设置为5</div>
+<!--多行超长提示，--ell-line指定行数-->
+<div class="ell-m-t" style="--ell-line:3">ellipsis多行顶部提示,行数设置为3</div>
+<!--无论是否超长均提示-->
+<div class="ell-a-t">ellipsis在顶部提示</div>
+<!--自定义提示内容-->
+<div class="ell-t" ell-value="自定义内容">ellipsis在顶部提示</div>
+
 ```
 
 ### 3.自定义tooltip样式
@@ -102,6 +111,11 @@ html {
 
 
 ### 5.版本更新记录
+**3.0.0**
+1. 多行class名由".elln-方向"改为".ell-m-方向",仍兼容2.x用法；
+2. 新增不论是否超长均提示功能，class名为".ell-a-方向"；
+3. 新增自定义tooltip功能，在应用了class的元素中，设置自定义属性ell-value;
+
 **2.1.0**
 1. 向现实妥协，放弃纯css的hover触发tooltip方式，采用dom的mouseover事件触发tooltip,解决上一版本需单独处理scroll与transform的情况;
 2. 最初的想法过于极端，一方面表现在希望使用时极简，靠一个class名搞定；二是在触发上也做到极简，不依赖于dom的mouseover监听事件,靠css的hover触发；以至于在实现过程中总是无法完美解决面临的所有情况，有了上面关于《fixed与absolution方案论述》

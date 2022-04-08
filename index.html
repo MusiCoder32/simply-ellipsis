@@ -155,10 +155,11 @@
                 </div>
             </section>
             <section>
-                <h5 style="text-align: center; padding-top: 20px">4.演示自定义提示，即提示内容与显示内容不一致</h5>
+                <h5 style="text-align: center; padding-top: 20px">4.演示自定义提示，即提示内容与显示内容不一致，还可应用于图标</h5>
                 <div>使用方式为添加class:"ell-a-t、ell-a-b、ell-a-r、ell-a-l","a"代表always</div>
                 <div style="display: flex">
-                    <div class="ell-a-l item">右侧ell-a-l</div>
+                    <div class="ell-a-l item" style="width:100px" ell-value="文字内容自定义">右侧ell-a-l</div>
+                    <div class="ell-a-l item" ell-value="文字内容自定义">右侧ell-a-l</div>
                     <div class="ell-a-r" ell-value="这是一个自定义内容的tooltip"
                         ><svg width="50" height="50" viewBox="0 0 1024 1024" class="svg-hover">
                             <path
@@ -172,7 +173,8 @@
             <section>
                 <h5 style="text-align: center; padding-top: 20px">5.演示多行仅超长时进行提示</h5>
                 <div> 使用方式 为设置class与style="--ell-line:Number"，Number用于指定行数;</div>
-                <div> 3.x使用方式为添加class:"ell-m-t、ell-m-b、ell-m-r、ell-m-l"; </div>
+                <div> 3.x使用方式为添加class:"ell-m-t、ell-m-b、ell-m-r、ell-m-l",</div>
+                <div>m代表multiply,同时兼容2.x的使用方式;</div>
                 <div> 2.x以前版本使用方式为添加class:"elln-t、elln-b、elln-r、elln-l"; </div>
                 <h5 style="margin-top: 10px">设置2行超长省略</h5>
                 <div class="example-4 elln-b" style="--ell-line: 2">
@@ -180,7 +182,7 @@
                     ipsum iusto maxime nihil, nostrum nulla omnis quis ratione sed sequi suscipit?
                 </div>
                 <h5 style="margin-top: 10px">设置3行超长省略</h5>
-                <div class="example-4 ell-m-b" style="--ell-line: 3">
+                <div class="example-4 ell-m-b" style="--ell-line: 3" ell-value="12341">
                     设置为3行超长省略。Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur culpa
                     dolores ipsum iusto maxime nihil, nostrum nulla omnis quis ratione sed sequi suscipit?
                 </div>
@@ -193,10 +195,8 @@
 
             <h5 style="padding-top: 20px">5.重点说明</h5>
             <div style="width: 800px; padding-top: 20px">
-                <h4>版本2.1.0</h4>
                 <ul>
-                    <li>由原生css的hover方案更改为dom的mouseover方案，使用方式仍与原先相同，无需做任何修改</li>
-                    <li>完美解决scroll滚动以及transform对tooltip影响，不再需要特殊处理这两种情况</li>
+
                     <li
                         >需要注意的情况是，全局监听的方式，无法监听到style="display:none"的变化，由此导致tooltip不生效，解决方式详见
                         <span style="font-weight: bolder">
@@ -210,9 +210,7 @@
                         >第6部分疑难解答
                     </li>
                 </ul>
-                <h4>版本2.2.0</h4>
                 <ul>
-                    <li>初次引入多行省略功能，同单行一样，只会超长才提示，同时会自动调整位置保持tooltip在视图内</li>
                     <li
                         >整理了tooltip相关样式，便于各位开发者进行自定义tooltip样式，说见
                         <span style="font-weight: bolder">
@@ -229,26 +227,28 @@
             </div>
         </div>
     </body>
-    <!--    <script src="dist/simply-ellipsis.min.js"></script>-->
-    <!--    <script>-->
-    <!--        let dom = document.getElementById('currentTime')-->
-    <!--        dom.innerText = new Date().toLocaleString()-->
-    <!--        setInterval(() => {-->
-    <!--            dom.childNodes[0].data = new Date().toLocaleString()-->
-    <!--        }, 1000)-->
+<!--    发布版代码-->
+        <script src="dist/simply-ellipsis.min.js"></script>
+        <script>
+            let dom = document.getElementById('currentTime')
+            dom.innerText = new Date().toLocaleString()
+            setInterval(() => {
+                dom.childNodes[0].data = new Date().toLocaleString()
+            }, 1000)
 
-    <!--        window.addEventListener('load', () => {-->
-    <!--            ellipsis.setEll()-->
-    <!--            ellipsis.setObserver('app')-->
-    <!--        })-->
-    <!--    </script>-->
+            window.addEventListener('load', () => {
+                ellipsis.setEll()
+                ellipsis.setObserver('app')
+            })
+        </script>
 
-    <script type="module">
-        import ellipsis from './src/main.js'
+<!--    调试用代码-->
+<!--    <script type="module">-->
+<!--        import ellipsis from './src/main.js'-->
 
-        window.addEventListener('load', () => {
-            ellipsis.setEll()
-            ellipsis.setObserver('app')
-        })
-    </script>
+<!--        window.addEventListener('load', () => {-->
+<!--            ellipsis.setEll()-->
+<!--            ellipsis.setObserver('app')-->
+<!--        })-->
+<!--    </script>-->
 </html>
