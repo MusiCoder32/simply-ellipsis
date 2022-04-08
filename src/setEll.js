@@ -28,9 +28,18 @@ function setEllItem(dom, type) {
     const anglePadding = 9 //定义小三角距边界的位置，padding加上圆角尺寸
     // 获取dom的尺寸
     const { innerText, clientWidth, clientHeight } = dom
+    console.log(innerText)
     const { w, h } = getClientSize() //浏览器可见区域高宽尺寸
     const { left, top, bottom, right } = dom.getClientRects()[0]
-    dom.setAttribute('ell-value', innerText)
+    let content = dom.getAttribute('ell-value')
+    if (!content) {
+        if (innerText) {
+            content = innerText
+            dom.setAttribute('ell-value', content)
+        } else {
+            return
+        }
+    }
 
     // 获取目标dom的style并封装成对象，便于修改
     let cssTextArr = dom.style.cssText.split(';')
@@ -154,7 +163,7 @@ function setEllItem(dom, type) {
         tooltip.setAttribute('id', 'simply-ellipsis-tooltip')
         document.body.append(tooltip)
     }
-    tooltip.setAttribute('ell-value', innerText)
+    tooltip.setAttribute('ell-value', content)
     tooltip.style.cssText = cssTextString
     // 根据实际的ell提示框位置来设置气泡框小三角的朝向
     ellArr.forEach((item) => {

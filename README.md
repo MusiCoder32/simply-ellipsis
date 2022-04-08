@@ -3,9 +3,9 @@
 
 **在线预览 [http://sichuan_meiyijia_industry_w327134.gitee.io/ellipsis/](http://sichuan_meiyijia_industry_w327134.gitee.io/ellipsis/)**
 
-1. 解决tooltip不超长也会提示问题
-2. 解决tooltip超出边界时不会自动调整的问题
-3. 解决多行提示
+**1. 解决tooltip不超长也会提示问题**
+**2. 解决tooltip超出边界时不会自动调整的问题**
+**3. 解决多行提示**
 
 # 使用时一定要阅读下方的疑难解答，否则会导致引入不生效！！！
 ![请添加图片描述](https://img-blog.csdnimg.cn/0ee875fe3e164996a3f804c91d4d2102.gif)
