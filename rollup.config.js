@@ -7,11 +7,11 @@ export default defineConfig([
     {
         input: './src/main.ts',
         output: [
-            {
-                file: './dist/simply-ellipsis.js',
-                format: 'umd',
-                name: 'ellipsis',
-            },
+            // {
+            //     file: './dist/simply-ellipsis.js',
+            //     format: 'umd',
+            //     name: 'ellipsis',
+            // },
             {
                 file: './dist/simply-ellipsis.min.js',
                 format: 'umd',
@@ -19,6 +19,7 @@ export default defineConfig([
             },
         ],
         plugins: [
+            uglify(),
             typescript({
                 exclude: 'node_modules/**',
                 typescript: require('typescript'),
