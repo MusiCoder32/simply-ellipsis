@@ -229,27 +229,27 @@
         </div>
     </body>
 <!--    发布版代码-->
-        <script src="dist/simply-ellipsis.min.js"></script>
-        <script>
-            let dom = document.getElementById('currentTime')
-            dom.innerText = new Date().toLocaleString()
-            setInterval(() => {
-                dom.childNodes[0].data = new Date().toLocaleString()
-            }, 1000)
+<!--        <script src="dist/simply-ellipsis.min.js"></script>-->
+<!--        <script>-->
+<!--            let dom = document.getElementById('currentTime')-->
+<!--            dom.innerText = new Date().toLocaleString()-->
+<!--            setInterval(() => {-->
+<!--                dom.childNodes[0].data = new Date().toLocaleString()-->
+<!--            }, 1000)-->
 
-            window.addEventListener('load', () => {
-                ellipsis.setEll()
-                ellipsis.setObserver('app','element-light')
-            })
-        </script>
+<!--            window.addEventListener('load', () => {-->
+<!--                ellipsis.setEll()-->
+<!--                ellipsis.setObserver('app','element-dark')-->
+<!--            })-->
+<!--        </script>-->
 
 <!--    调试用代码-->
-<!--    <script type="module">-->
-<!--        import ellipsis from './src/main.js'-->
+    <script type="module">
+        import ellipsis from './src/main.js'
 
-<!--        window.addEventListener('load', () => {-->
-<!--            ellipsis.setEll()-->
-<!--            ellipsis.setObserver('app')-->
-<!--        })-->
-<!--    </script>-->
+        window.addEventListener('load', () => {
+            ellipsis.setEll()
+            ellipsis.setObserver('app')
+        })
+    </script>
 </html>

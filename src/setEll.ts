@@ -88,6 +88,7 @@ function setEllItem(dom, type) {
 
     //获取ell:before，即气泡框上的小三角的尺寸
     const beforeDom = window.getComputedStyle(dom, 'before')
+    console.log(beforeDom)
     const borderWidth = parseInt(beforeDom.borderWidth)
 
     // 根据上一步获取的尺寸，计算ell堤示框能否在视野内完全显示，若不能，强制更换其显示位置

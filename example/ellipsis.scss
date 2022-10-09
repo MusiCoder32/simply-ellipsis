@@ -142,9 +142,12 @@ html {
     position: fixed;
     left: var(--ell-angle-left);
     top: var(--ell-angle-top);
-    border-width: 5px;
+    border-color: var(--ell-border-color);
+    border-width: var(--ell-border-size);
+    background-color: var(--ell-background);
+    width: 10px;
+    height: 10px;
     border-style: solid;
-    border-color: var(--ell-background) transparent transparent transparent;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.5s, opacity 0.5s;
@@ -166,15 +169,12 @@ html {
 }
 
 .has-ell-bottom:before {
-    border-color: transparent transparent var(--ell-background) transparent;
 }
 
 .has-ell-right:before {
-    border-color: transparent var(--ell-background) transparent transparent;
 }
 
 .has-ell-left:before {
-    border-color: transparent transparent transparent var(--ell-background);
 }
 
 .has-ell:hover:after {
