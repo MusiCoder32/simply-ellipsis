@@ -2,7 +2,9 @@
 import { setEll } from './setEll.js'
 import debounce from './debounce.js'
 
-export const setObserver = function (id) {
+export const setObserver = function (id,theme='element-dark') {
+    const doc = document.documentElement
+    doc.dataset.ellipsis = theme
     // 观察器的配置（需要观察什么变动）
     // 如果页面存在持续改变style的动画，会导致防抖函数始终无法得到执行，故取消style的监听
     const config = {

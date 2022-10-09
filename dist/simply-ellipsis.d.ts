@@ -1,6 +1,6 @@
 declare const _default: {
     setEll: () => void;
-    setObserver: (id: any) => void;
+    setObserver: (id: any, theme?: string) => void;
 };
 
 export { _default as default };
