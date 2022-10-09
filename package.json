@@ -1,6 +1,6 @@
 {
   "name": "simply-ellipsis",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "简易ellipsis效果，只需要一个class名便搞定",
   "main": "./dist/simply-ellipsis.js",
   "types": "./dist/simply-ellipsis.d.ts",
